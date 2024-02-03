@@ -2,6 +2,7 @@
 #define textureSystem_hpp
 #include<string>
 #include<map>
+typedef unsigned int texture;
 
 class TextureManager{
 

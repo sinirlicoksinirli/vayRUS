@@ -28,19 +28,19 @@
     <Filter Include="Source Files\UreTechEngine\defaultEngineShapes">
       <UniqueIdentifier>{e6cb6ffe-7d5c-4261-a48f-8019a77dcf6e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\UreTechEngine\player">
+      <UniqueIdentifier>{b2872e87-0850-4bff-aecf-75d79995c370}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\imgui">
+      <UniqueIdentifier>{a7b8d963-c234-499b-9899-f400df7932e1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\vayRUSContent">
+      <UniqueIdentifier>{4fd3f681-48b2-4873-a55b-33a51b8e64f8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Source.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\glad.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="shaderSystem.cpp">
       <Filter>Source Files\UreTechEngine\shaders</Filter>
-    </ClCompile>
-    <ClCompile Include="entity.cpp">
-      <Filter>Source Files\UreTechEngine\entity</Filter>
     </ClCompile>
     <ClCompile Include="textureSystem.cpp">
       <Filter>Source Files\UreTechEngine\shaders</Filter>
@@ -50,6 +50,54 @@
     </ClCompile>
     <ClCompile Include="mesh.cpp">
       <Filter>Source Files\UreTechEngine\shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui\imgui.cpp">
+      <Filter>Source Files\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui\imgui_demo.cpp">
+      <Filter>Source Files\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui\imgui_draw.cpp">
+      <Filter>Source Files\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui\imgui_impl_glfw.cpp">
+      <Filter>Source Files\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui\imgui_impl_opengl3.cpp">
+      <Filter>Source Files\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui\imgui_tables.cpp">
+      <Filter>Source Files\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui\imgui_widgets.cpp">
+      <Filter>Source Files\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineBase.cpp">
+      <Filter>Source Files\UreTechEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\glad.c">
+      <Filter>Source Files\UreTechEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="Source.cpp">
+      <Filter>Source Files\UreTechEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="vertexStructs.cpp">
+      <Filter>Source Files\UreTechEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="entity.cpp">
+      <Filter>Source Files\UreTechEngine\entity</Filter>
+    </ClCompile>
+    <ClCompile Include="vayrusCube.cpp">
+      <Filter>Source Files\vayRUSContent</Filter>
+    </ClCompile>
+    <ClCompile Include="player.cpp">
+      <Filter>Source Files\UreTechEngine\player</Filter>
+    </ClCompile>
+    <ClCompile Include="MeshManager.cpp">
+      <Filter>Source Files\UreTechEngine\shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="Array.cpp">
+      <Filter>Source Files\UreTechEngine\utils</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -68,14 +116,8 @@
     <ClInclude Include="shaderSystem.hpp">
       <Filter>Source Files\UreTechEngine\shaders</Filter>
     </ClInclude>
-    <ClInclude Include="entity.h">
-      <Filter>Source Files\UreTechEngine\entity</Filter>
-    </ClInclude>
     <ClInclude Include="EngineBase.h">
       <Filter>Source Files\UreTechEngine</Filter>
-    </ClInclude>
-    <ClInclude Include="src\stb_image.h">
-      <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="textureSystem.hpp">
       <Filter>Source Files\UreTechEngine\shaders</Filter>
@@ -91,6 +133,66 @@
     </ClInclude>
     <ClInclude Include="mesh.hpp">
       <Filter>Source Files\UreTechEngine\shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="MeshManager.hpp">
+      <Filter>Source Files\UreTechEngine\shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="player.hpp">
+      <Filter>Source Files\UreTechEngine\player</Filter>
+    </ClInclude>
+    <ClInclude Include="UreTechPyramid.h">
+      <Filter>Source Files\UreTechEngine\defaultEngineShapes</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui\imstb_truetype.h">
+      <Filter>Source Files\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui\imconfig.h">
+      <Filter>Source Files\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui\imgui.h">
+      <Filter>Source Files\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui\imgui_impl_glfw.h">
+      <Filter>Source Files\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui\imgui_impl_opengl3.h">
+      <Filter>Source Files\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui\imgui_impl_opengl3_loader.h">
+      <Filter>Source Files\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui\imgui_internal.h">
+      <Filter>Source Files\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui\imstb_rectpack.h">
+      <Filter>Source Files\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui\imstb_textedit.h">
+      <Filter>Source Files\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="include\GLFW\include\GLFW\glfw3.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\GLFW\include\GLFW\glfw3native.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\stb_image.h">
+      <Filter>Source Files\UreTechEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="entity.h">
+      <Filter>Source Files\UreTechEngine\entity</Filter>
+    </ClInclude>
+    <ClInclude Include="vayrusCube.h">
+      <Filter>Source Files\vayRUSContent</Filter>
+    </ClInclude>
+    <ClInclude Include="UreTechCube2.h">
+      <Filter>Source Files\UreTechEngine\defaultEngineShapes</Filter>
+    </ClInclude>
+    <ClInclude Include="3DMath.hpp">
+      <Filter>Source Files\UreTechEngine\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Array.hpp">
+      <Filter>Source Files\UreTechEngine\utils</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

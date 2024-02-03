@@ -3,15 +3,16 @@
 
 #include"vertexStructs.hpp"
 #include <vector>
-class vertexArrayManager {
+class vertexArrayObject {
 public:
-	vertexArrayManager();
-	~vertexArrayManager();
-	void createObject(const Vertex& vertices,unsigned int verticesCount, const indexData& indices, unsigned int indicesCount);
+	vertexArrayObject();
+	~vertexArrayObject();
+	void createObject(Vertex& vertices,unsigned int verticesCount, indexData& indices, unsigned int indicesCount);
 	void activateBuffer();
 	void deactivateBuffer();
+	unsigned int getIndexCount();
 private:
-	unsigned int VaoId, VboId, VibId;
+	unsigned int VaoId, VboId, VibId,indexCount;
 	std::vector<unsigned int> t_Attirbs;
 };
 

@@ -5,7 +5,7 @@
 #include<glm/gtc/matrix_transform.hpp>
 
 
-vertexArrayManager::vertexArrayManager()
+vertexArrayObject::vertexArrayObject()
 {
 	VaoId = 0;
 	VboId = 0;
@@ -13,7 +13,7 @@ vertexArrayManager::vertexArrayManager()
 
 }
 
-vertexArrayManager::~vertexArrayManager()
+vertexArrayObject::~vertexArrayObject()
 {
 	if (VaoId) {
 		glDeleteVertexArrays(1,&VaoId);
@@ -26,7 +26,7 @@ vertexArrayManager::~vertexArrayManager()
 	}
 }
 
-void vertexArrayManager::createObject(const Vertex& vertices, unsigned int verticesCount, const indexData& indices, unsigned int indicesCount)
+void vertexArrayObject::createObject(Vertex& vertices, unsigned int verticesCount, indexData& indices, unsigned int indicesCount)
 {
 	glGenVertexArrays(1, &VaoId);
 	glGenBuffers(1, &VboId);
@@ -38,6 +38,7 @@ void vertexArrayManager::createObject(const Vertex& vertices, unsigned int verti
 
 	glBufferData(GL_ARRAY_BUFFER, sizeof(Vertex) * verticesCount, &vertices, GL_STATIC_DRAW);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices)* indicesCount, &indices, GL_STATIC_DRAW);
+	indexCount = indicesCount;
 	//vertex bilgisi
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 5, (void*)0);
 	glEnableVertexAttribArray(0);
@@ -48,7 +49,7 @@ void vertexArrayManager::createObject(const Vertex& vertices, unsigned int verti
 	t_Attirbs.push_back(1);
 }
 
-void vertexArrayManager::activateBuffer()
+void vertexArrayObject::activateBuffer()
 {
 	glBindVertexArray(VaoId);
 	for (auto next : t_Attirbs) {
@@ -56,10 +57,15 @@ void vertexArrayManager::activateBuffer()
 	}
 }
 
-void vertexArrayManager::deactivateBuffer()
+void vertexArrayObject::deactivateBuffer()
 {
 	for (auto next : t_Attirbs) {
 		glDisableVertexAttribArray(next);
 	}
 	glBindVertexArray(0);
+}
+
+unsigned int vertexArrayObject::getIndexCount()
+{
+	return indexCount;
 }
