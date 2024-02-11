@@ -5,7 +5,9 @@
 struct Vertex {
 	glm::vec3 pos;
 	glm::vec2 tex;
-	Vertex(float x=0.0f, float y = 0.0f, float z = 0.0f, float tX = 0.0f, float tY = 0.0f);
+	glm::vec3 norm;
+	Vertex(float x=0.0f, float y = 0.0f, float z = 0.0f, float tX = 0.0f, float tY = 0.0f, glm::vec3 _norm=glm::vec3(0.0f,0.0f,0.0f));
+	Vertex(glm::vec3 _pos, glm::vec2 _uv, glm::vec3 _norm);
 };
 typedef unsigned int indexData;
 
@@ -13,8 +15,5 @@ struct triangleFace {
 	Vertex v0;
 	Vertex v1;
 	Vertex v2;
-};
-struct trianglePolyFace {
-	//??
 };
 #endif 

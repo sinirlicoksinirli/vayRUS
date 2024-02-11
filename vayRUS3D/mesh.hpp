@@ -18,8 +18,10 @@ public:
 	UreTechEngine::Transform3D transform;
 	void draw(UreTechEngine::Transform3D _addTrnsfm);
 	void applyTexture(texture _text);
+	void changeLitRender(bool val);
 	mesh(vertexArrayObject* _p_Vao, texture _text);
 private:
+	bool litRender = true;
 	vertexArrayObject* p_Vao;
 	TextureManager* textManager;
 	ShaderProgram* shaderProg;

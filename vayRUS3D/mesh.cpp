@@ -9,10 +9,9 @@
 
 void mesh::draw(UreTechEngine::Transform3D _addTrnsfm)
 {
-
+	
 	textManager->applyTexture(GL_TEXTURE0, TextureID);
 
-	//glm::mat4 TransformTransliton = glm::translate(glm::mat4(1), glm::vec3(transform.Location.fx()+ _addTrnsfm.Location.fx(), transform.Location.fy()+ _addTrnsfm.Location.fy(), transform.Location.fz()+ _addTrnsfm.Location.fz()));
 	glm::vec3 TransformTransliton = glm::vec3(transform.Location.fx() + _addTrnsfm.Location.fx(), transform.Location.fy() + _addTrnsfm.Location.fy(), transform.Location.fz() + _addTrnsfm.Location.fz());
 	UreTechEngine::Rotation _rot;
 	_rot.roll += _addTrnsfm.Rotation.roll;
@@ -24,15 +23,23 @@ void mesh::draw(UreTechEngine::Transform3D _addTrnsfm)
 	shaderProg->setVec3("uTranslation", TransformTransliton);
 	shaderProg->setVec3("uRotation", TransformRotation);
 	shaderProg->setMat4("uScale", &TransformScale);
+	shaderProg->setBool("litRender", litRender);
 
 	p_Vao->activateBuffer();
 	glDrawElements(GL_TRIANGLES, indexCount, GL_UNSIGNED_INT, 0);
 	p_Vao->deactivateBuffer();
+
 }
 
 void mesh::applyTexture(texture _text)
 {
 	TextureID = _text;
+}
+
+void mesh::changeLitRender(bool val)
+{
+	litRender = val;
+	shaderProg->setBool("litRender", litRender);
 }
 
 mesh::mesh(vertexArrayObject* _p_Vao, texture _text)

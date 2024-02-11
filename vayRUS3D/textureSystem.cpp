@@ -28,6 +28,8 @@ unsigned int TextureManager::loadTextureFromFile(std::string fileName)
 	else {
 		int t_width, t_height, nrChannels;
 
+		stbi_set_flip_vertically_on_load(1);
+
 		unsigned char* textureAddr = stbi_load(fileName.c_str(), &t_width, &t_height, &nrChannels, 0);
 
 		unsigned int texture;

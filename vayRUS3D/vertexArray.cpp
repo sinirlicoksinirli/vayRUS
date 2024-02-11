@@ -40,13 +40,18 @@ void vertexArrayObject::createObject(Vertex& vertices, unsigned int verticesCoun
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices)* indicesCount, &indices, GL_STATIC_DRAW);
 	indexCount = indicesCount;
 	//vertex bilgisi
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 5, (void*)0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 8, (void*)0);
 	glEnableVertexAttribArray(0);
 	//texture bilgisi
-	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 5, (void*)(3 * sizeof(float)));
+	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 8, (void*)(3 * sizeof(float)));
 	glEnableVertexAttribArray(1);
+	//normal bilgisi
+	glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 8, (void*)(5 * sizeof(float)));
+	glEnableVertexAttribArray(2);
+
 	t_Attirbs.push_back(0);
 	t_Attirbs.push_back(1);
+	t_Attirbs.push_back(2);
 }
 
 void vertexArrayObject::activateBuffer()

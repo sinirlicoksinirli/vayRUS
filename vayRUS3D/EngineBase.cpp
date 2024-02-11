@@ -23,7 +23,7 @@ UreTechEngine::UreTechEngineClass* UreTechEngine::UreTechEngineClass::getEngine(
 			while(1){}
 		}
 
-		c_Instance->window = glfwCreateWindow(displayWidth, displayHeight, "UreTechEngine BETA1.0.4-Pre_EDITOR OpenGL3.3", NULL, NULL);
+		c_Instance->window = glfwCreateWindow(displayWidth, displayHeight, "UreTechEngine BETA1.0.5-Pre_EDITOR OpenGL3.3", NULL, NULL);
 		if (c_Instance->window == NULL) {
 			std::cout << "WINDOW ERROR!";
 			glfwTerminate();
@@ -48,9 +48,16 @@ UreTechEngine::UreTechEngineClass* UreTechEngine::UreTechEngineClass::getEngine(
 		c_Instance->mainShaderProgram->addUniform("uMtxCamPos");
 		c_Instance->mainShaderProgram->addUniform("uCamRot");
 		c_Instance->mainShaderProgram->addUniform("uMtxCam");
+		c_Instance->mainShaderProgram->addUniform("litRender");
+		c_Instance->mainShaderProgram->addUniform("lightPos");
 
-		//glfwWindowHint(GLFW_SAMPLES, 4);
-		//glEnable(GL_MULTISAMPLE);
+		glEnable(GL_DEPTH_TEST);
+		glEnable(GL_CULL_FACE);
+		glCullFace(GL_FRONT);
+		glFrontFace(GL_CW);
+
+		glfwWindowHint(GLFW_SAMPLES, 4);
+		glEnable(GL_MULTISAMPLE);
 		//******
 
         c_Instance->defPlayer = new Player;

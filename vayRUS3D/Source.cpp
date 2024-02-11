@@ -51,6 +51,8 @@ float editorCamPos[3] = { 0.0f,0.0f,0.0f };
 
 bool rClickL = false;
 
+UreTechEngine::Player* player = nullptr;
+
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods) {
 	glfwCreateStandardCursor(GLFW_ARROW_CURSOR);
 
@@ -58,8 +60,27 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 		glfwSetWindowShouldClose(window,1);
 	}
 	if (key == GLFW_KEY_W && rClickL) {
-		
+		vector3 change = Math3D::addWithRotation(player->CameraTranform.Rotation, vector3(0.1f, 0.0f, 0.0f), vector3(editorCamPos[0], editorCamPos[1], editorCamPos[2]));
+		editorCamPos[0] = change.fx();
+		editorCamPos[1] = change.fy();
 	}
+	if (key == GLFW_KEY_S && rClickL) {
+		vector3 change = Math3D::addWithRotation(player->CameraTranform.Rotation, vector3(-0.1f, 0.0f, 0.0f), vector3(editorCamPos[0], editorCamPos[1], editorCamPos[2]));
+		editorCamPos[0] = change.fx();
+		editorCamPos[1] = change.fy();
+	}
+
+	if (key == GLFW_KEY_D && rClickL) {
+		vector3 change = Math3D::addWithRotation(player->CameraTranform.Rotation, vector3(0.0f, 0.1f, 0.0f), vector3(editorCamPos[0], editorCamPos[1], editorCamPos[2]));
+		editorCamPos[0] = change.fx();
+		editorCamPos[1] = change.fy();
+	}
+	if (key == GLFW_KEY_A && rClickL) {
+		vector3 change = Math3D::addWithRotation(player->CameraTranform.Rotation, vector3(0.0f, -0.1f, 0.0f), vector3(editorCamPos[0], editorCamPos[1], editorCamPos[2]));
+		editorCamPos[0] = change.fx();
+		editorCamPos[1] = change.fy();
+	}
+	
 }
 void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
 {
@@ -79,7 +100,7 @@ int main(int argc, char** argv) {
 	GLFWwindow* window = engine->getWindow();
 	engine->setKeyCallBackFunc(key_callback, mouse_button_callback);
 
-	UreTechEngine::Player* Player= engine->getPlayer();//get player ref
+	player = engine->getPlayer();//get player ref
 	TextureManager* textureManager = TextureManager::getInstance();//create texture manager
 	MeshManager* meshManager = MeshManager::getInstance();
 	int icoW, icoH, icoC;
@@ -94,12 +115,18 @@ int main(int argc, char** argv) {
 	//textures
 	texture Texture0 = textureManager->loadTextureFromFile("textures/text.jpg");
 	texture Texture1 = textureManager->loadTextureFromFile("textures/text2.png");
+	texture grass01Texture = textureManager->loadTextureFromFile("textures/grass01.jpg");
+
+	texture Texture2 = textureManager->loadTextureFromFile("textures/skysphere01.jpg");
 
 
 	EngineTestCubeVao.createObject(testCubeVertices[0],size(testCubeVertices), testCubeIndecies[0],size(testCubeIndecies));
 	EngineTestPyramidVao.createObject(testPyramidVertices[0], size(testPyramidVertices), testPyramidIndecies[0], size(testPyramidIndecies));
 
-	mesh* mesh0 = meshManager->importMeshFbx("yes.obj", Texture0);
+	mesh* mesh0 = meshManager->importMeshFbx("flaty.obj", grass01Texture);
+	mesh* mesh1 = meshManager->importMeshFbx("cube.obj", Texture0);
+	mesh* mesh2 = meshManager->importMeshFbx("skysphere.obj", Texture0);
+
 	mesh cubeMesh(&EngineTestCubeVao, Texture0);
 	mesh pyramidMesh(&EngineTestPyramidVao, Texture1);
 	pyramidMesh.transform.Location.x = 1.0f;
@@ -107,23 +134,29 @@ int main(int argc, char** argv) {
 	cubeMesh.transform.Scale.y = 0.5f;
 	cubeMesh.transform.Scale.z = 0.5f;
 
-	Player->CameraTranform.Location.x = 0.0f;
-	Player->CameraTranform.Location.y = 0.0f;
-	Player->CameraTranform.Location.z = 0.0f;
+	player->CameraTranform.Location.x = -1.0f;
+	player->CameraTranform.Location.y = 0.0f;
+	player->CameraTranform.Location.z = 1.5f;
 
-	Transform3D a(vector3(1.0f, 1.0f, 0.0f), Rotation(0.0f, 0.0f, 0.0f), vector3(1.0f, 1.0f, 1.0f));
-	Transform3D b(vector3(-1.0f, 1.0f, 0.0f), Rotation(0.0f, 0.0f, 0.0f), vector3(1.0f, 1.0f, 1.0f));
-	Transform3D c(vector3(1.0f, -1.0f, 0.0f), Rotation(0.0f, 0.0f, 0.0f), vector3(1.0f, 1.0f, 1.0f));
-	Transform3D d(vector3(-1.0f, -1.0f, 0.0f), Rotation(0.0f, 0.0f, 0.0f), vector3(1.0f, 1.0f, 1.0f));
+	Transform3D a(vector3(0.0f, 0.0f, -1.0f), Rotation(0.0f, 0.0f, 0.0f), vector3(1.0f, 1.0f, 1.0f));
+	Transform3D b(vector3(-1.0f, 1.0f, 0.0f), Rotation(0.0f, 0.0f, 0.0f), vector3(0.3f, 0.3f, 0.3f));
+	Transform3D c(vector3(1.0f, -1.0f, 0.0f), Rotation(0.0f, 0.0f, 0.0f), vector3(0.3f, 0.3f, 0.3f));
+	Transform3D d(vector3(-1.0f, -1.0f, 0.0f), Rotation(0.0f, 0.0f, 0.0f), vector3(0.3f, 0.3f, 0.3f));
+	Transform3D e(vector3(0.0f, 0.0f, 0.0f), Rotation(0.0f, 0.0f, 0.0f), vector3(100.0f, 100.0f, 100.0f));
+
+	if (mesh0 == nullptr) {
+		while (1);
+		std::cout << "ERROR(engine):null obj file!";
+	}
 
 	TestDumy = engine->spawnEntity(new entity(a.Location,a.Rotation,a.Scale, mesh0,"Dummy1"));
-	engine->spawnEntity(new entity(b.Location, b.Rotation, b.Scale, &cubeMesh, "Dummy2"));
-	engine->spawnEntity(new entity(c.Location, c.Rotation, c.Scale, &cubeMesh, "Dummy3"));
-	engine->spawnEntity(new entity(d.Location, d.Rotation, d.Scale, &cubeMesh, "Dummy4"));
+	engine->spawnEntity(new entity(b.Location, b.Rotation, b.Scale, mesh1, "Dummy2"));
+	engine->spawnEntity(new entity(c.Location, c.Rotation, c.Scale, mesh1, "Dummy3"));
+	engine->spawnEntity(new entity(d.Location, d.Rotation, d.Scale, mesh1, "Dummy4"));
+	mesh2->changeLitRender(false);
+	engine->spawnEntity(new entity(e.Location, e.Rotation, e.Scale, mesh2, "Dummy5"));
 
 	float rot = 0;
-
-	glEnable(GL_DEPTH_TEST);
 
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
@@ -145,7 +178,7 @@ int main(int argc, char** argv) {
 	spawnables["vayrusCube"] = []() { return new vayrusCube(); };
 
 	while (!glfwWindowShouldClose(window)) {
-		glClearColor(0.0f, 0.2f, 0.4f, 1.0f);
+		glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		engine->getShaderProgram()->use();
 
@@ -156,19 +189,25 @@ int main(int argc, char** argv) {
 		if (rClickL) {
 			editorCamYaw += lxpos - xpos;
 			editorCamRoll += lypos - ypos;
+
+			if (editorCamRoll > 90.0f) {
+				editorCamRoll = 90.0f;
+			}else if (editorCamRoll < -90.0f) {
+				editorCamRoll = -90.0f;
+			}
 		}
 		//end of exec
 		lxpos = xpos;
 		lypos = ypos;
 
-		Player->CameraTranform.Rotation.roll = editorCamRoll;
-		Player->CameraTranform.Rotation.pitch = editorCamYaw;
+		player->CameraTranform.Rotation.roll = editorCamRoll;
+		player->CameraTranform.Rotation.pitch = editorCamYaw;
 
-		Player->CameraTranform.Location.x = editorCamPos[0];
-		Player->CameraTranform.Location.y = editorCamPos[1];
-		Player->CameraTranform.Location.z = editorCamPos[2];
+		player->CameraTranform.Location.x = editorCamPos[0];
+		player->CameraTranform.Location.y = editorCamPos[1];
+		player->CameraTranform.Location.z = editorCamPos[2];
 
-		Player->updateCamera();
+		player->updateCamera();
 
 
 		engine->engineTick();
@@ -279,7 +318,7 @@ int main(int argc, char** argv) {
 		UreTechEngine::UreTechEngineClass::displayWidth = display_w;
 		UreTechEngine::UreTechEngineClass::displayHeight = display_h;
 
-		glfwSwapInterval(0);
+		glfwSwapInterval(1);
 		glfwSwapBuffers(window);
 		glfwPollEvents();
 	}

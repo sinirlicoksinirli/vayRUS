@@ -2,6 +2,7 @@
 
  layout (location = 0) in vec3 inPosition;
  layout (location = 1) in vec2 inTexCoord;
+ layout (location = 2) in vec3 inNormDat;
 
  uniform vec3 uTranslation;
  uniform vec3 uRotation;
@@ -13,6 +14,8 @@
  uniform mat4 uMtxCam;
 
  out vec2 texCoord;
+ out vec3 FragPos; 
+ out vec3 Normal;
 
  mat4 rotationX( in float angle ) {
 	return mat4(	1.0,		0,			0,			0,
@@ -49,8 +52,13 @@ mat4 rotationZ( in float angle ) {
 
 	rotMatr = rotationX(radians(uRotation.x))*rotationY(radians(uRotation.y))*rotationZ(radians(uRotation.z));
 
+	mat4 model =translMatr*rotMatr*uScale;
+
 	camRotMatr=rotationX(radians(uCamRot.x))*rotationY(radians(uCamRot.y))*rotationZ(radians(uCamRot.z));
 
-    gl_Position = uMtxProj*camRotMatr*uMtxCam*inverse(uMtxCamPos)*translMatr*rotMatr*uScale*vec4(inPosition, 1.0);
+    gl_Position = uMtxProj*camRotMatr*uMtxCam*inverse(uMtxCamPos)*model*vec4(inPosition, 1.0);
     texCoord = inTexCoord;
+	FragPos = vec3(model*vec4(inPosition, 1.0));
+	 
+	Normal =mat3(transpose(inverse(model))) * inNormDat; ;
 }
