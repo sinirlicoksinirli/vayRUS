@@ -23,7 +23,7 @@ UreTechEngine::UreTechEngineClass* UreTechEngine::UreTechEngineClass::getEngine(
 			while(1){}
 		}
 
-		c_Instance->window = glfwCreateWindow(displayWidth, displayHeight, "UreTechEngine BETA1.0.5-Pre_EDITOR OpenGL3.3", NULL, NULL);
+		c_Instance->window = glfwCreateWindow(displayWidth, displayHeight, "UreTechEngine BETA1.0.7-Pre_EDITOR OpenGL3.3", NULL, NULL);
 		if (c_Instance->window == NULL) {
 			std::cout << "WINDOW ERROR!";
 			glfwTerminate();
