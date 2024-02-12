@@ -141,7 +141,7 @@
       </AddModuleNamesToAssembly>
       <ForceSymbolReferences>
       </ForceSymbolReferences>
-      <AdditionalDependencies>openGL32.Lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>openGL32.Lib;glfw3.lib;Ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
       <ShowProgress>LinkVerbose</ShowProgress>
       <DelayLoadDLLs>
@@ -184,7 +184,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(ProjectDir)lib\x64\;$(WindowsSDK_LibraryPath_x64);$(VCInstallDir)atlmfc\lib\amd64;$(VCInstallDir)lib\amd64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>openGL32.Lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>openGL32.Lib;glfw3.lib;winsock32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ModuleDefinitionFile>
       </ModuleDefinitionFile>
       <AddModuleNamesToAssembly>
@@ -198,6 +198,7 @@
     <ClCompile Include="Array.cpp" />
     <ClCompile Include="EngineBase.cpp" />
     <ClCompile Include="entity.cpp" />
+    <ClCompile Include="errOut.cpp" />
     <ClCompile Include="imgui\imgui.cpp" />
     <ClCompile Include="imgui\imgui_demo.cpp" />
     <ClCompile Include="imgui\imgui_draw.cpp" />
@@ -209,6 +210,7 @@
     <ClCompile Include="imgui\imgui_widgets.cpp" />
     <ClCompile Include="mesh.cpp" />
     <ClCompile Include="MeshManager.cpp" />
+    <ClCompile Include="network.cpp" />
     <ClCompile Include="player.cpp" />
     <ClCompile Include="shaderSystem.cpp" />
     <ClCompile Include="Source.cpp" />
@@ -229,6 +231,7 @@
     <ClInclude Include="baseVector.h" />
     <ClInclude Include="EngineBase.h" />
     <ClInclude Include="entity.h" />
+    <ClInclude Include="errOut.h" />
     <ClInclude Include="imgui\imconfig.h" />
     <ClInclude Include="imgui\imgui.h" />
     <ClInclude Include="imgui\imgui_impl_glfw.h" />
@@ -242,6 +245,7 @@
     <ClInclude Include="include\GLFW\include\GLFW\glfw3native.h" />
     <ClInclude Include="mesh.hpp" />
     <ClInclude Include="MeshManager.hpp" />
+    <ClInclude Include="network.h" />
     <ClInclude Include="player.hpp" />
     <ClInclude Include="shaderSystem.hpp" />
     <ClInclude Include="src\stb_image.h" />

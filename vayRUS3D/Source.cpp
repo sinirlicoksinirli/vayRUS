@@ -11,6 +11,10 @@
 #include<glm/mat4x4.hpp>
 #include<glm/gtc/matrix_transform.hpp>
 
+//networking
+#include<WinSock2.h>
+#include"network.h"
+
 #define STB_IMAGE_IMPLEMENTATION   
 #include<stb/stb_image.h>
 
@@ -116,23 +120,11 @@ int main(int argc, char** argv) {
 	texture Texture0 = textureManager->loadTextureFromFile("textures/text.jpg");
 	texture Texture1 = textureManager->loadTextureFromFile("textures/text2.png");
 	texture grass01Texture = textureManager->loadTextureFromFile("textures/grass01.jpg");
-
 	texture Texture2 = textureManager->loadTextureFromFile("textures/skysphere01.jpg");
-
-
-	EngineTestCubeVao.createObject(testCubeVertices[0],size(testCubeVertices), testCubeIndecies[0],size(testCubeIndecies));
-	EngineTestPyramidVao.createObject(testPyramidVertices[0], size(testPyramidVertices), testPyramidIndecies[0], size(testPyramidIndecies));
 
 	mesh* mesh0 = meshManager->importMeshFbx("flaty.obj", grass01Texture);
 	mesh* mesh1 = meshManager->importMeshFbx("cube.obj", Texture0);
-	mesh* mesh2 = meshManager->importMeshFbx("skysphere.obj", Texture0);
-
-	mesh cubeMesh(&EngineTestCubeVao, Texture0);
-	mesh pyramidMesh(&EngineTestPyramidVao, Texture1);
-	pyramidMesh.transform.Location.x = 1.0f;
-	cubeMesh.transform.Scale.x = 0.5f;
-	cubeMesh.transform.Scale.y = 0.5f;
-	cubeMesh.transform.Scale.z = 0.5f;
+	mesh* mesh2 = meshManager->importMeshFbx("skysphere.obj", Texture2);
 
 	player->CameraTranform.Location.x = -1.0f;
 	player->CameraTranform.Location.y = 0.0f;
@@ -142,7 +134,7 @@ int main(int argc, char** argv) {
 	Transform3D b(vector3(-1.0f, 1.0f, 0.0f), Rotation(0.0f, 0.0f, 0.0f), vector3(0.3f, 0.3f, 0.3f));
 	Transform3D c(vector3(1.0f, -1.0f, 0.0f), Rotation(0.0f, 0.0f, 0.0f), vector3(0.3f, 0.3f, 0.3f));
 	Transform3D d(vector3(-1.0f, -1.0f, 0.0f), Rotation(0.0f, 0.0f, 0.0f), vector3(0.3f, 0.3f, 0.3f));
-	Transform3D e(vector3(0.0f, 0.0f, 0.0f), Rotation(0.0f, 0.0f, 0.0f), vector3(100.0f, 100.0f, 100.0f));
+	Transform3D e(vector3(0.0f, 0.0f, 0.0f), Rotation(0.0f, -90.0f, 0.0f), vector3(1.0f, 1.0f, 1.0f));
 
 	if (mesh0 == nullptr) {
 		while (1);
@@ -171,6 +163,7 @@ int main(int argc, char** argv) {
 
 	entity* selectedEntityEngine = nullptr;
 
+	networkSystem::getNetworkSystem()->startServer();
 	//editor spawnables
 	std::map<std::string, std::function<entity* ()>> spawnables;
 

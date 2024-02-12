@@ -37,6 +37,9 @@
     <Filter Include="Source Files\vayRUSContent">
       <UniqueIdentifier>{4fd3f681-48b2-4873-a55b-33a51b8e64f8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\UreTechEngine\network">
+      <UniqueIdentifier>{dd871dd1-86f0-4323-8df5-e46eedd0ad67}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="shaderSystem.cpp">
@@ -97,6 +100,12 @@
       <Filter>Source Files\UreTechEngine\shaders</Filter>
     </ClCompile>
     <ClCompile Include="Array.cpp">
+      <Filter>Source Files\UreTechEngine\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="network.cpp">
+      <Filter>Source Files\UreTechEngine\network</Filter>
+    </ClCompile>
+    <ClCompile Include="errOut.cpp">
       <Filter>Source Files\UreTechEngine\utils</Filter>
     </ClCompile>
   </ItemGroup>
@@ -192,6 +201,12 @@
       <Filter>Source Files\UreTechEngine\utils</Filter>
     </ClInclude>
     <ClInclude Include="Array.hpp">
+      <Filter>Source Files\UreTechEngine\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="network.h">
+      <Filter>Source Files\UreTechEngine\network</Filter>
+    </ClInclude>
+    <ClInclude Include="errOut.h">
       <Filter>Source Files\UreTechEngine\utils</Filter>
     </ClInclude>
   </ItemGroup>
