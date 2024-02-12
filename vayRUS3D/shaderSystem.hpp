@@ -23,7 +23,7 @@ public:
 
 	void setBool(const std::string& varName, bool val);
 
-	void setVec3(const std::string& varName, glm::vec3& val);
+	void setVec3(const std::string& varName, glm::vec3 val);
 
 	void setVec4(const std::string& varName, glm::vec4& val);
 

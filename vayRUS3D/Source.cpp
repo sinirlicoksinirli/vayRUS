@@ -131,10 +131,10 @@ int main(int argc, char** argv) {
 	player->CameraTranform.Location.z = 1.5f;
 
 	Transform3D a(vector3(0.0f, 0.0f, -1.0f), Rotation(0.0f, 0.0f, 0.0f), vector3(1.0f, 1.0f, 1.0f));
-	Transform3D b(vector3(-1.0f, 1.0f, 0.0f), Rotation(0.0f, 0.0f, 0.0f), vector3(0.3f, 0.3f, 0.3f));
-	Transform3D c(vector3(1.0f, -1.0f, 0.0f), Rotation(0.0f, 0.0f, 0.0f), vector3(0.3f, 0.3f, 0.3f));
-	Transform3D d(vector3(-1.0f, -1.0f, 0.0f), Rotation(0.0f, 0.0f, 0.0f), vector3(0.3f, 0.3f, 0.3f));
-	Transform3D e(vector3(0.0f, 0.0f, 0.0f), Rotation(0.0f, -90.0f, 0.0f), vector3(1.0f, 1.0f, 1.0f));
+	Transform3D b(vector3(-1.0f, 1.0f, -0.6f), Rotation(0.0f, 0.0f, 0.0f), vector3(0.3f, 0.3f, 0.3f));
+	Transform3D c(vector3(1.0f, -1.0f, -0.6f), Rotation(0.0f, 0.0f, 0.0f), vector3(0.3f, 0.3f, 0.3f));
+	Transform3D d(vector3(-1.0f, -1.0f, -0.6f), Rotation(0.0f, 0.0f, 0.0f), vector3(0.3f, 0.3f, 0.3f));
+	Transform3D e(vector3(0.0f, 0.0f, 0.0f), Rotation(-30.0f, -90.0f, 0.0f), vector3(1.0f, 1.0f, 1.0f));
 
 	if (mesh0 == nullptr) {
 		while (1);
@@ -162,8 +162,12 @@ int main(int argc, char** argv) {
 	float editorTransformScl[3] = { 1.0f,1.0f,1.0f };
 
 	entity* selectedEntityEngine = nullptr;
-
-	networkSystem::getNetworkSystem()->startServer();
+	if (engine->isServer) {
+		networkSystem::getNetworkSystem()->startServer();
+	}
+	else {
+		networkSystem::getNetworkSystem()->connectToServer();
+	}
 	//editor spawnables
 	std::map<std::string, std::function<entity* ()>> spawnables;
 

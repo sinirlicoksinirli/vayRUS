@@ -21,6 +21,8 @@ namespace UreTechEngine {
 	public:
 		static unsigned int displayWidth;
 		static unsigned int displayHeight;
+		bool isInServer = false;
+		bool isServer = true;
 
 		ShaderProgram* mainShaderProgram = nullptr;
 		static UreTechEngineClass* c_Instance;

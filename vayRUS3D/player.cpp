@@ -17,7 +17,7 @@ void UreTechEngine::Player::updateCamera()
 	shaderProg->setVec3("uCamRot", this->CamRot);
 	shaderProg->setMat4("uMtxCamPos", &this->mtxCamPos);
 	shaderProg->setMat4("uMtxCam", &this->mtxCam);
-	shaderProg->setVec3("lightPos", glm::vec3(0.0f, 100.0f, 100.0f));
+	shaderProg->setVec3("lightPos", glm::vec3(100.0f, 100.0f, 100.0f));
 }
 
 UreTechEngine::Player::Player()

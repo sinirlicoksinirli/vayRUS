@@ -44,7 +44,7 @@ void ShaderProgram::setBool(const std::string& varName, bool val)
 	glUniform1i(m_UniformVars[varName], val);
 }
 
-void ShaderProgram::setVec3(const std::string& varName, glm::vec3& val)
+void ShaderProgram::setVec3(const std::string& varName, glm::vec3 val)
 {
 	glUniform3f(m_UniformVars[varName], val.x,val.y,val.z);
 }

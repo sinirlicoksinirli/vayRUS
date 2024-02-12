@@ -4,6 +4,7 @@
 #ifndef network_h
 #define network_h
 #include<WinSock2.h>
+#include <WS2tcpip.h>
 
 namespace UreTechEngine {
 	class networkSystem {
@@ -11,10 +12,12 @@ namespace UreTechEngine {
 		static networkSystem* c_NetInst;
 		static networkSystem* getNetworkSystem();
 		void startServer();
+		void connectToServer();
 	private:
-		int sock;
+		int sock, newsockfd;
 		int port=33660;
 		struct sockaddr_in serv_addr, cli_addr;
+		socklen_t clilen;
 		networkSystem();
 		~networkSystem();
 	};
