@@ -1,8 +1,9 @@
-#ifndef player_hpp
-#define player_hpp
-#include"baseVector.h"
-#include"shaderSystem.hpp"
-#include"EngineBase.h"
+#ifndef player_h
+#define player_h
+
+#include"../UreTechEngine/utils/baseVector.h"
+#include"../UreTechEngine/shaders/shaderSystem.hpp"
+
 class ShaderProgram;
 namespace UreTechEngine {
 	class UreTechEngineClass;

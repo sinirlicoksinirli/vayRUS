@@ -196,10 +196,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Array.cpp" />
-    <ClCompile Include="EngineBase.cpp" />
-    <ClCompile Include="entity.cpp" />
-    <ClCompile Include="errOut.cpp" />
     <ClCompile Include="imgui\imgui.cpp" />
     <ClCompile Include="imgui\imgui_demo.cpp" />
     <ClCompile Include="imgui\imgui_draw.cpp" />
@@ -209,17 +205,21 @@
     <ClCompile Include="imgui\imgui_impl_opengl3.cpp" />
     <ClCompile Include="imgui\imgui_tables.cpp" />
     <ClCompile Include="imgui\imgui_widgets.cpp" />
-    <ClCompile Include="mesh.cpp" />
-    <ClCompile Include="MeshManager.cpp" />
-    <ClCompile Include="network.cpp" />
-    <ClCompile Include="player.cpp" />
-    <ClCompile Include="shaderSystem.cpp" />
     <ClCompile Include="Source.cpp" />
-    <ClCompile Include="src\glad.c" />
-    <ClCompile Include="textureSystem.cpp" />
+    <ClCompile Include="UreTechEngine\EngineBase.cpp" />
+    <ClCompile Include="UreTechEngine\entity\entity.cpp" />
+    <ClCompile Include="UreTechEngine\network\network.cpp" />
+    <ClCompile Include="UreTechEngine\player\player.cpp" />
+    <ClCompile Include="UreTechEngine\shaders\glad.c" />
+    <ClCompile Include="UreTechEngine\shaders\mesh.cpp" />
+    <ClCompile Include="UreTechEngine\shaders\MeshManager.cpp" />
+    <ClCompile Include="UreTechEngine\shaders\shaderSystem.cpp" />
+    <ClCompile Include="UreTechEngine\shaders\textureSystem.cpp" />
+    <ClCompile Include="UreTechEngine\shaders\vertexArray.cpp" />
+    <ClCompile Include="UreTechEngine\shaders\vertexStructs.cpp" />
+    <ClCompile Include="UreTechEngine\utils\Array.cpp" />
+    <ClCompile Include="UreTechEngine\utils\errOut.cpp" />
     <ClCompile Include="vayrusCube.cpp" />
-    <ClCompile Include="vertexArray.cpp" />
-    <ClCompile Include="vertexStructs.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="baseFS.glsl" />
@@ -227,12 +227,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="3DMath.hpp" />
-    <ClInclude Include="Array.hpp" />
-    <ClInclude Include="baseVector.h" />
-    <ClInclude Include="EngineBase.h" />
-    <ClInclude Include="entity.h" />
-    <ClInclude Include="errOut.h" />
     <ClInclude Include="imgui\imconfig.h" />
     <ClInclude Include="imgui\imgui.h" />
     <ClInclude Include="imgui\imgui_impl_glfw.h" />
@@ -244,20 +238,23 @@
     <ClInclude Include="imgui\imstb_truetype.h" />
     <ClInclude Include="include\GLFW\include\GLFW\glfw3.h" />
     <ClInclude Include="include\GLFW\include\GLFW\glfw3native.h" />
-    <ClInclude Include="mesh.hpp" />
-    <ClInclude Include="MeshManager.hpp" />
-    <ClInclude Include="network.h" />
-    <ClInclude Include="player.hpp" />
     <ClInclude Include="resource.h" />
-    <ClInclude Include="shaderSystem.hpp" />
     <ClInclude Include="src\stb_image.h" />
-    <ClInclude Include="textureSystem.hpp" />
-    <ClInclude Include="UreTechCube.h" />
-    <ClInclude Include="UreTechCube2.h" />
-    <ClInclude Include="UreTechPyramid.h" />
+    <ClInclude Include="UreTechEngine\EngineBase.h" />
+    <ClInclude Include="UreTechEngine\entity\entity.h" />
+    <ClInclude Include="UreTechEngine\network\network.h" />
+    <ClInclude Include="UreTechEngine\player\player.h" />
+    <ClInclude Include="UreTechEngine\shaders\mesh.hpp" />
+    <ClInclude Include="UreTechEngine\shaders\MeshManager.hpp" />
+    <ClInclude Include="UreTechEngine\shaders\shaderSystem.hpp" />
+    <ClInclude Include="UreTechEngine\shaders\textureSystem.hpp" />
+    <ClInclude Include="UreTechEngine\shaders\vertexArray.hpp" />
+    <ClInclude Include="UreTechEngine\shaders\vertexStructs.hpp" />
+    <ClInclude Include="UreTechEngine\utils\3DMath.hpp" />
+    <ClInclude Include="UreTechEngine\utils\Array.hpp" />
+    <ClInclude Include="UreTechEngine\utils\baseVector.h" />
+    <ClInclude Include="UreTechEngine\utils\errOut.h" />
     <ClInclude Include="vayrusCube.h" />
-    <ClInclude Include="vertexArray.hpp" />
-    <ClInclude Include="vertexStructs.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="vayRUS3D.rc" />

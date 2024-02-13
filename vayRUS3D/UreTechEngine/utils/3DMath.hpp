@@ -18,8 +18,6 @@ namespace UreTechEngine {
 			double exactYxChange= _force.y *-1* sin(radians);
 			double exactYyChange = _force.y *-1* cos(radians);
 
-			std::cout << absRot.pitch  <<std::endl;
-
 			result.x = exactXxChange+ exactYxChange +_toAdd.x;
 			result.y = exactXyChange- exactYyChange + _toAdd.y;
 

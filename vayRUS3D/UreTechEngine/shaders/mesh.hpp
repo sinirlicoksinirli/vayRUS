@@ -1,15 +1,17 @@
 #ifndef mesh_hpp
 #define mesh_hpp
-#include"EngineBase.h"
-#include"vertexArray.hpp"
-#include"vertexStructs.hpp"
+#include"../UreTechEngine/shaders/shaderSystem.hpp"
+#include"../UreTechEngine/shaders/vertexArray.hpp"
+#include"../UreTechEngine/shaders/vertexStructs.hpp"
+#include"../UreTechEngine/shaders/textureSystem.hpp"
+#include"../UreTechEngine/utils/baseVector.h"
+#include"../UreTechEngine/player/player.h"
+
+
 #include<glad/glad.h>
 #include <gl/GL.h>
 #include<GLFW/glfw3.h>
-#include"textureSystem.hpp"
-#include"baseVector.h"
-#include"shaderSystem.hpp"
-#include"player.hpp"
+
 namespace UreTechEngine {
 	class Player;
 }

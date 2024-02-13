@@ -1,5 +1,5 @@
-#include"mesh.hpp"
-#include"baseVector.h"
+#include"../UreTechEngine/utils/baseVector.h"
+#include"../UreTechEngine/shaders/mesh.hpp"
 #include"entity.h"
 
 #define entity_cpp

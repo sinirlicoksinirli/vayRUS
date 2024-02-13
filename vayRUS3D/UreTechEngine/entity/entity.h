@@ -3,9 +3,8 @@
 #define entity_h
 
 #include <string>
-#include"baseVector.h"
-#include"mesh.hpp"
-#include"EngineBase.h"
+#include"../UreTechEngine/utils/baseVector.h"
+#include"../UreTechEngine/shaders/mesh.hpp"
 
 class mesh;
 

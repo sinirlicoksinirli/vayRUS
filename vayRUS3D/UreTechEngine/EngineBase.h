@@ -2,10 +2,10 @@
 #ifndef enginebase_h
 #define enginebase_h
 
-#include"baseVector.h"
-#include"player.hpp"
-#include"shaderSystem.hpp"
-#include"entity.h"
+#include"../UreTechEngine/utils/baseVector.h"
+#include"../UreTechEngine/player/player.h"
+#include"../UreTechEngine/shaders/shaderSystem.hpp"
+#include"../UreTechEngine/entity/entity.h"
 
 #include<glad/glad.h>
 #include<GLFW/glfw3.h>

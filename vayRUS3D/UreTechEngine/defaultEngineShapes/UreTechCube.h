@@ -2,7 +2,7 @@
 #ifndef UreTechCube_h
 #define UreTechCube_h
 
-#include"vertexStructs.hpp"
+#include"UreTechEngine/shaders/vertexStructs.hpp"
 Vertex testCubeVertices[24] = {
 	Vertex(-0.5f, -0.5f, -0.5f, 1.0f, 1.0f),
 	Vertex( 0.5f, -0.5f, -0.5f, 0.0f, 1.0f),

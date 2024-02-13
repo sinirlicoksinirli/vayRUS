@@ -1,6 +1,7 @@
-#include "player.hpp"
-#include"EngineBase.h"
-#include"shaderSystem.hpp"
+#include "player.h"
+#include"../UreTechEngine/utils/baseVector.h"
+#include"../UreTechEngine/shaders/shaderSystem.hpp"
+#include"../UreTechEngine/EngineBase.h"
 
 void UreTechEngine::Player::updateCamera()
 {

@@ -4,7 +4,7 @@
 #include<GLFW/glfw3.h>
 #include<glm/mat4x4.hpp>
 #include<glm/gtc/matrix_transform.hpp>
-#include"player.hpp"
+#include"player/player.h"
 
 UreTechEngine::UreTechEngineClass* UreTechEngine::UreTechEngineClass::c_Instance = nullptr;
 unsigned int UreTechEngine::UreTechEngineClass::displayWidth = 1000;
@@ -37,8 +37,8 @@ UreTechEngine::UreTechEngineClass* UreTechEngine::UreTechEngineClass::getEngine(
 
 		c_Instance->mainShaderProgram = new ShaderProgram();
 
-		c_Instance->mainShaderProgram->attachShader("shaders/baseVS.glsl", GL_VERTEX_SHADER);
-		c_Instance->mainShaderProgram->attachShader("shaders/baseFS.glsl", GL_FRAGMENT_SHADER);
+		c_Instance->mainShaderProgram->attachShader("content/shaders/baseVS.glsl", GL_VERTEX_SHADER);
+		c_Instance->mainShaderProgram->attachShader("content/shaders/baseFS.glsl", GL_FRAGMENT_SHADER);
 		c_Instance->mainShaderProgram->link();
 		c_Instance->mainShaderProgram->addUniform("uColor");
 		c_Instance->mainShaderProgram->addUniform("uTranslation");

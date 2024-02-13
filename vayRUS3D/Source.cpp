@@ -13,23 +13,20 @@
 
 //networking
 #include<WinSock2.h>
-#include"network.h"
+#include"UreTechEngine/network/network.h"
 
 #define STB_IMAGE_IMPLEMENTATION   
 #include<stb/stb_image.h>
-
-#include"vertexStructs.hpp"
-#include"EngineBase.h"
-#include"shaderSystem.hpp"
-#include"textureSystem.hpp"
-#include"vertexArray.hpp"
-#include"MeshManager.hpp"
-#include"mesh.hpp"
-#include"3DMath.hpp"
-#include"Array.hpp"
-
-#include"UreTechCube.h"
-#include"UreTechPyramid.h"
+ 
+#include"UreTechEngine/shaders/vertexStructs.hpp"
+#include"UreTechEngine/EngineBase.h"
+#include"UreTechEngine/shaders/shaderSystem.hpp"
+#include"UreTechEngine/shaders/textureSystem.hpp"
+#include"UreTechEngine/shaders/vertexArray.hpp"
+#include"UreTechEngine/shaders/MeshManager.hpp"
+#include"UreTechEngine/shaders/mesh.hpp"
+#include"UreTechEngine/utils/3DMath.hpp"
+#include"UreTechEngine/utils/Array.hpp"
 
 #include"vayrusCube.h"
 
@@ -103,6 +100,8 @@ int main(int argc, char** argv) {
 	UreTechEngine::UreTechEngineClass* engine = UreTechEngine::UreTechEngineClass::getEngine();//init engine
 	GLFWwindow* window = engine->getWindow();
 	engine->setKeyCallBackFunc(key_callback, mouse_button_callback);
+	//init net system
+	UreTechEngine::networkSystem* netSys = UreTechEngine::networkSystem::getNetworkSystem();
 
 	player = engine->getPlayer();//get player ref
 	TextureManager* textureManager = TextureManager::getInstance();//create texture manager
@@ -163,6 +162,14 @@ int main(int argc, char** argv) {
 	else {
 		networkSystem::getNetworkSystem()->connectToServer();
 	}*/
+
+	//net ui vars
+	char toConnectIP_UIChar[150];
+	char toConnectIPPORT_UIChar[150];
+	memset(toConnectIP_UIChar, 0, 150);
+	memset(toConnectIPPORT_UIChar, 0, 150);
+
+
 	//editor spawnables
 	std::map<std::string, std::function<entity* ()>> spawnables;
 
@@ -215,13 +222,13 @@ int main(int argc, char** argv) {
 			ImGui::SetNextWindowSize(ImVec2(450, 80));
 			ImGui::Begin("Creator", NULL, ImGuiWindowFlags_NoMove|ImGuiWindowFlags_NoResize|ImGuiWindowFlags_NoCollapse);
 			char editorSpawnTextInput[150];
+			memset(editorSpawnTextInput, 0, 150);
 			ImGui::Text("Class Name:");
 			if (ImGui::InputText("class", editorSpawnTextInput, 150, ImGuiInputTextFlags_EnterReturnsTrue)) {
 					auto it = spawnables.find(string(editorSpawnTextInput));
 					if (it != spawnables.end()) {
 						entity* spawned = engine->spawnEntity(it->second());
 					}
-				memset(editorSpawnTextInput, 0, 150);
 			}
 
 			ImGui::End();
@@ -285,6 +292,34 @@ int main(int argc, char** argv) {
 			//TRANSFORM WINDOW END
 		}
 		//editor UI end
+
+		//NET WINDOW
+		bool netWindow = 1;
+		ImGui::Begin("Connect To Server", &netWindow,ImGuiWindowFlags_NoCollapse);
+
+		ImGui::Text("CONNECT:");
+		ImGui::InputText("IP", toConnectIP_UIChar, 150, ImGuiInputTextFlags_EnterReturnsTrue);
+		ImGui::InputText("PORT", toConnectIPPORT_UIChar, 150, ImGuiInputTextFlags_EnterReturnsTrue);
+		if (ImGui::Button("CONNECT")) {
+				netSys->setToConnectIPAddr(std::string(toConnectIP_UIChar),std::string(toConnectIPPORT_UIChar));
+				memset(toConnectIP_UIChar, 0, 150);
+				memset(toConnectIPPORT_UIChar, 0, 150);
+				netSys->connectToServer();	
+		}
+		ImGui::End();
+
+		ImGui::Begin("Host a Server", &netWindow, ImGuiWindowFlags_NoCollapse);
+
+		ImGui::Text("Host:");
+		//ImGui::InputText("PORT", toConnectIPPORT_UIChar, 150, ImGuiInputTextFlags_EnterReturnsTrue);
+		if (ImGui::Button("Host")) {
+			netSys->startServer();
+		}
+		ImGui::End();
+		//NET WINDOW END
+
+
+
 		ImGui::EndFrame();
 		ImGui::Render();
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());

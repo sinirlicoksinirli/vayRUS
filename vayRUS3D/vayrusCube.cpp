@@ -1,8 +1,7 @@
 #include"vayrusCube.h"
-#include"textureSystem.hpp"
-#include"vertexArray.hpp"
-#include"UreTechCube2.h"
-#include"MeshManager.hpp"
+
+#include"../UreTechEngine/shaders/textureSystem.hpp"
+#include"../UreTechEngine/shaders/MeshManager.hpp"
 
 #include<iostream>
 vayrusCube::vayrusCube() {

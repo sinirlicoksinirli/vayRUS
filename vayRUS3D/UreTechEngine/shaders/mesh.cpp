@@ -1,11 +1,16 @@
 #include"mesh.hpp"
-#include"vertexArray.hpp"
-#include"vertexStructs.hpp"
+
+#include"../UreTechEngine/EngineBase.h"
+#include"../UreTechEngine/shaders/vertexArray.hpp"
+#include"../UreTechEngine/shaders/vertexStructs.hpp"
+#include"../UreTechEngine/shaders/textureSystem.hpp"
+#include"../UreTechEngine/utils/baseVector.h"
+
+
 #include<glad/glad.h>
 #include<GLFW/glfw3.h>
 #include<glm/mat4x4.hpp>
 #include<glm/gtc/matrix_transform.hpp>
-#include "textureSystem.hpp"
 
 void mesh::draw(UreTechEngine::Transform3D _addTrnsfm)
 {

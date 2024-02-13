@@ -1,5 +1,5 @@
 #include"textureSystem.hpp"
-#include "src/stb_image.h"
+#include"../src/stb_image.h"
 #include<glad/glad.h>
 #include<GLFW/glfw3.h>
 #include<glm/mat4x4.hpp>
