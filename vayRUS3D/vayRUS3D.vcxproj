@@ -263,7 +263,6 @@
     <ResourceCompile Include="vayRUS3D.rc" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="content\Textures\icon.png" />
     <Image Include="icon.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
