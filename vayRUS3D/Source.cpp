@@ -108,7 +108,7 @@ int main(int argc, char** argv) {
 	TextureManager* textureManager = TextureManager::getInstance();//create texture manager
 	MeshManager* meshManager = MeshManager::getInstance();
 	int icoW, icoH, icoC;
-	unsigned char* icoimg = stbi_load("icon.png", &icoW, &icoH, &icoC, 0);
+	unsigned char* icoimg = stbi_load("content/Textures/icon.png", &icoW, &icoH, &icoC, 0);
 	GLFWimage icon[1];
 	icon[0].width = icoW;
 	icon[0].height = icoH;
@@ -117,14 +117,14 @@ int main(int argc, char** argv) {
 	//******
 
 	//textures
-	texture Texture0 = textureManager->loadTextureFromFile("textures/text.jpg");
-	texture Texture1 = textureManager->loadTextureFromFile("textures/text2.png");
-	texture grass01Texture = textureManager->loadTextureFromFile("textures/grass01.jpg");
-	texture Texture2 = textureManager->loadTextureFromFile("textures/skysphere01.jpg");
+	texture Texture0 = textureManager->loadTextureFromFile("content/Textures/text.jpg");
+	texture Texture1 = textureManager->loadTextureFromFile("content/Textures/text2.png");
+	texture grass01Texture = textureManager->loadTextureFromFile("content/Textures/grass01.jpg");
+	texture Texture2 = textureManager->loadTextureFromFile("content/Textures/skysphere01.jpg");
 
-	mesh* mesh0 = meshManager->importMeshFbx("flaty.obj", grass01Texture);
-	mesh* mesh1 = meshManager->importMeshFbx("cube.obj", Texture0);
-	mesh* mesh2 = meshManager->importMeshFbx("skysphere.obj", Texture2);
+	mesh* mesh0 = meshManager->importMeshFbx("content/Meshs/flaty.obj", grass01Texture);
+	mesh* mesh1 = meshManager->importMeshFbx("content/Meshs/cube.obj", Texture0);
+	mesh* mesh2 = meshManager->importMeshFbx("content/Meshs/skysphere.obj", Texture2);
 
 	player->CameraTranform.Location.x = -1.0f;
 	player->CameraTranform.Location.y = 0.0f;
@@ -135,11 +135,6 @@ int main(int argc, char** argv) {
 	Transform3D c(vector3(1.0f, -1.0f, -0.6f), Rotation(0.0f, 0.0f, 0.0f), vector3(0.3f, 0.3f, 0.3f));
 	Transform3D d(vector3(-1.0f, -1.0f, -0.6f), Rotation(0.0f, 0.0f, 0.0f), vector3(0.3f, 0.3f, 0.3f));
 	Transform3D e(vector3(0.0f, 0.0f, 0.0f), Rotation(-30.0f, -90.0f, 0.0f), vector3(1.0f, 1.0f, 1.0f));
-
-	if (mesh0 == nullptr) {
-		while (1);
-		std::cout << "ERROR(engine):null obj file!";
-	}
 
 	TestDumy = engine->spawnEntity(new entity(a.Location,a.Rotation,a.Scale, mesh0,"Dummy1"));
 	engine->spawnEntity(new entity(b.Location, b.Rotation, b.Scale, mesh1, "Dummy2"));
@@ -162,12 +157,12 @@ int main(int argc, char** argv) {
 	float editorTransformScl[3] = { 1.0f,1.0f,1.0f };
 
 	entity* selectedEntityEngine = nullptr;
-	if (engine->isServer) {
+	/*if (engine->isServer) {
 		networkSystem::getNetworkSystem()->startServer();
 	}
 	else {
 		networkSystem::getNetworkSystem()->connectToServer();
-	}
+	}*/
 	//editor spawnables
 	std::map<std::string, std::function<entity* ()>> spawnables;
 

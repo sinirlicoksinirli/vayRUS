@@ -37,8 +37,8 @@ UreTechEngine::UreTechEngineClass* UreTechEngine::UreTechEngineClass::getEngine(
 
 		c_Instance->mainShaderProgram = new ShaderProgram();
 
-		c_Instance->mainShaderProgram->attachShader("baseVS.glsl", GL_VERTEX_SHADER);
-		c_Instance->mainShaderProgram->attachShader("baseFS.glsl", GL_FRAGMENT_SHADER);
+		c_Instance->mainShaderProgram->attachShader("shaders/baseVS.glsl", GL_VERTEX_SHADER);
+		c_Instance->mainShaderProgram->attachShader("shaders/baseFS.glsl", GL_FRAGMENT_SHADER);
 		c_Instance->mainShaderProgram->link();
 		c_Instance->mainShaderProgram->addUniform("uColor");
 		c_Instance->mainShaderProgram->addUniform("uTranslation");

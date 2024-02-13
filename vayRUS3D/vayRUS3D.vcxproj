@@ -192,6 +192,7 @@
       <ForceSymbolReferences>
       </ForceSymbolReferences>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+      <SuppressStartupBanner>false</SuppressStartupBanner>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -247,6 +248,7 @@
     <ClInclude Include="MeshManager.hpp" />
     <ClInclude Include="network.h" />
     <ClInclude Include="player.hpp" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="shaderSystem.hpp" />
     <ClInclude Include="src\stb_image.h" />
     <ClInclude Include="textureSystem.hpp" />
@@ -256,6 +258,13 @@
     <ClInclude Include="vayrusCube.h" />
     <ClInclude Include="vertexArray.hpp" />
     <ClInclude Include="vertexStructs.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="vayRUS3D.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="content\Textures\icon.png" />
+    <Image Include="icon.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets" />
