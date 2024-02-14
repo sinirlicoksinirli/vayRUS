@@ -7,6 +7,15 @@ namespace UreTechEngine {
 		elemSize = _elemSize;
 	}
 
+	Array::Array()
+	{
+	}
+
+	void Array::setElemSize(size_t _elemSize)
+	{
+		elemSize = _elemSize;
+	}
+
 	unsigned int Array::addElement(void* toAddPtr)
 	{
 		char* newArrPtr = nullptr;
@@ -22,11 +31,33 @@ namespace UreTechEngine {
 				memcpy(newArrPtr, toAddPtr, elemSize);
 				elemCount++;
 			}
+			free(arrPtr);
 			arrPtr = newArrPtr;
 			return elemCount - 1;
 		}
 		else {
 			return -1;
+		}
+	}
+	void Array::removeIndex(unsigned int _index)
+	{
+		char* newArrPtr = nullptr;
+		char* firstPartOfArray = nullptr;
+		char* lastPartOfArray = nullptr;
+		size_t firstSize, lastSize;
+		if (arrPtr != nullptr) {
+			if (_index < elemCount) {
+				newArrPtr = (char*)malloc(elemSize * (elemCount - 1));
+
+				firstSize = elemSize * (_index);
+				lastSize = elemCount - (_index + 1);
+
+				memcpy(newArrPtr, arrPtr, firstSize);
+				memcpy((newArrPtr + firstSize), (arrPtr + firstSize), lastSize);
+				elemCount--;
+				free(arrPtr);
+				arrPtr = newArrPtr;
+			}
 		}
 	}
 	void* Array::getIndex(unsigned int index)
@@ -37,5 +68,9 @@ namespace UreTechEngine {
 		else {
 			return nullptr;
 		}
+	}
+	unsigned int Array::size()
+	{
+		return elemCount;
 	}
 }

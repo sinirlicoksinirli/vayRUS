@@ -1,6 +1,7 @@
 #include "network.h"
 #include<WinSock2.h>
 #include"../UreTechEngine/utils/errOut.h"
+#include"../EngineBase.h"
 #include<string>
 
 namespace UreTechEngine {
@@ -56,44 +57,13 @@ void UreTechEngine::networkSystem::startServer()
     if (listen(sock, 5)==SOCKET_ERROR) {
         EngineERROR::consoleError(std::string("(Network Socket): Failed to listen!"), EngineERROR::ERROR_FATAL);
     }
-    clilen = sizeof(cli_addr);
-
-    char buffer[256];
-
-    newsockfd = accept(sock, (struct sockaddr*)&cli_addr, &clilen);
-    if (newsockfd == INVALID_SOCKET) {
-        int errorCode = WSAGetLastError();
-        if (errorCode != WSAEWOULDBLOCK) {
-            EngineERROR::consoleError(std::string("(Network): Client can not connect!") + std::to_string(errorCode), EngineERROR::ERROR_NORMAL);
-        }
-    }
-    else {
-        EngineERROR::consoleError("aaaaaaa", EngineERROR::INFO_NORMAL);
-
-        printf("server: got connection from %s port %d\n",
-            inet_ntoa(cli_addr.sin_addr), ntohs(cli_addr.sin_port));
-
-
-        // This send() function sends the 13 bytes of the string to the new socket
-        send(newsockfd, "OK 200", 13, 0);
-        int n;
-
-        n = recv(newsockfd, buffer, 255, 0);
-        if (n < 0) {
-            EngineERROR::consoleError(std::string("(Network Socket): Failed read socket"), EngineERROR::WARN_CAN_CAUSE_ERROR);
-        }
-
-        EngineERROR::consoleError(std::string("(Network Socket): Read to socket:") + std::string(buffer), EngineERROR::INFO_NORMAL);
-
-        stopServer();
-    }  
+    clilen = sizeof(cli_addr);  
+    UreTechEngineClass::getEngine()->isServer = true;
+    UreTechEngineClass::getEngine()->isInServer = true;
 }
 
 void UreTechEngine::networkSystem::connectToServer()
 {
-    char buffer[256];
-    int n;
-
     WSADATA wsaData;
     int result;
     // Winsock baþlatma
@@ -110,6 +80,9 @@ void UreTechEngine::networkSystem::connectToServer()
 
     EngineERROR::consoleError("Socket: Client Socket Started!", EngineERROR::INFO_NORMAL);
 
+    UreTechEngineClass::getEngine()->isServer = false;
+    UreTechEngineClass::getEngine()->isInServer = true;
+
     if (invalidIP) {
         EngineERROR::consoleError("(Network Socket): Server is not available!",EngineERROR::ERROR_NORMAL);
     }
@@ -117,22 +90,6 @@ void UreTechEngine::networkSystem::connectToServer()
         if (connect(sock, (struct sockaddr*)&serv_addr, sizeof(serv_addr)) < 0) {
             EngineERROR::consoleError(std::string("(Network Socket): Can not connect to server!"), EngineERROR::ERROR_NORMAL);
         }
-        EngineERROR::consoleError("(DEBUG): enter message", EngineERROR::INFO_NORMAL);
-        fgets(buffer, 255, stdin);
-
-        n = send(sock, buffer, strlen(buffer), 0);
-        if (n < 0) {
-            EngineERROR::consoleError(std::string("(Network Socket): Can not write to server!"), EngineERROR::ERROR_NORMAL);
-        }
-
-
-        n = recv(sock, buffer, 255, 0);
-        if (n < 0) {
-            EngineERROR::consoleError(std::string("(Network Socket): Can not read from server!"), EngineERROR::ERROR_NORMAL);
-        }
-
-        printf("%s\n", buffer);
-        disconnectToServer();
     }
 }
 
@@ -162,7 +119,72 @@ void UreTechEngine::networkSystem::stopServer()
     closesocket(sock);
 }
 
+void UreTechEngine::networkSystem::connectionRequest()
+{
+    newsockfd = accept(sock, (struct sockaddr*)&cli_addr, &clilen);
+    if (newsockfd == INVALID_SOCKET) {
+        int errorCode = WSAGetLastError();
+        if (errorCode != WSAEWOULDBLOCK) {
+            printf("Accept failed with error code: %d\n", errorCode);
+        }
+        else {
+            //EngineERROR::consoleError("(Network Socket): Connection waiting...", EngineERROR::INFO_NORMAL);
+        }
+    }
+    else {
+        printf("server: got connection from %s port %d\n",
+        inet_ntoa(cli_addr.sin_addr), ntohs(cli_addr.sin_port));
+        clientData data;
+        data.clientAddr = cli_addr;
+        data.sock = newsockfd;
+        clientSocks.addElement(&data);
+    }
+
+}
+
+void UreTechEngine::networkSystem::sendRecvToServer()
+{
+    char buffer[256];
+    int n;
+
+    n = recv(sock, buffer, 255, 0);
+    EngineERROR::consoleError(std::string("(DEBUG): return:")+std::to_string(n), EngineERROR::INFO_NORMAL);
+    if (n >= 0) {
+        printf("%s\n", buffer);
+
+        EngineERROR::consoleError("(DEBUG): enter message", EngineERROR::INFO_NORMAL);
+        fgets(buffer, 255, stdin);
+    }
+
+    n = send(sock, buffer, strlen(buffer), 0);
+    EngineERROR::consoleError(std::string(buffer), EngineERROR::ERROR_ERROR);
+    if (n < 0) {
+        EngineERROR::consoleError(std::string("(Network Socket): Can not write to server!"), EngineERROR::ERROR_NORMAL);
+    }
+}
+
+void UreTechEngine::networkSystem::sendRecvToClient()
+{
+    char buffer[256];
+    for (int i = 0; i < clientSocks.size(); i++) {
+
+        // This send() function sends the 13 bytes of the string to the new socket
+        clientData* toSendSock = (clientData*)clientSocks.getIndex(i);
+        send(toSendSock->sock, "OK! BROO", 13, 0);
+
+        int n;
+        n = recv(toSendSock->sock, buffer, 255, 0);
+        if (n >= 0) {
+            EngineERROR::consoleError(std::string("(Network Socket): Read to socket:") + std::string(buffer), EngineERROR::INFO_NORMAL);
+        }
+        /*if (n < 0) {
+            EngineERROR::consoleError(std::string("(Network Socket): Failed read socket"), EngineERROR::WARN_CAN_CAUSE_ERROR);
+        }*/
+    }
+}
+
 UreTechEngine::networkSystem::networkSystem()
 {
+    clientSocks.setElemSize(sizeof(clientData));
 }
 

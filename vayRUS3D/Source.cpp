@@ -301,6 +301,8 @@ int main(int argc, char** argv) {
 		ImGui::InputText("IP", toConnectIP_UIChar, 150, ImGuiInputTextFlags_EnterReturnsTrue);
 		ImGui::InputText("PORT", toConnectIPPORT_UIChar, 150, ImGuiInputTextFlags_EnterReturnsTrue);
 		if (ImGui::Button("CONNECT")) {
+				memcpy(toConnectIP_UIChar, "127.0.0.1", 9);
+				memcpy(toConnectIPPORT_UIChar, "80", 2);
 				netSys->setToConnectIPAddr(std::string(toConnectIP_UIChar),std::string(toConnectIPPORT_UIChar));
 				memset(toConnectIP_UIChar, 0, 150);
 				memset(toConnectIPPORT_UIChar, 0, 150);
@@ -317,7 +319,13 @@ int main(int argc, char** argv) {
 		}
 		ImGui::End();
 		//NET WINDOW END
-
+		if (engine->isServer && engine->isInServer) {
+			netSys->connectionRequest();
+			netSys->sendRecvToClient();
+		}
+		if (!engine->isServer && engine->isInServer) {
+			netSys->sendRecvToServer();
+		}
 
 
 		ImGui::EndFrame();
