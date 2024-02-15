@@ -116,8 +116,8 @@ int main(int argc, char** argv) {
 	//******
 
 	//textures
-	texture Texture0 = textureManager->loadTextureFromFile("content/Textures/text.jpg");
-	texture Texture1 = textureManager->loadTextureFromFile("content/Textures/text2.png");
+	texture Texture0 = textureManager->loadTextureFromFile("content/Textures/susTM.png");
+	texture Texture1 = textureManager->loadTextureFromFile("content/Textures/sus.png");
 	texture grass01Texture = textureManager->loadTextureFromFile("content/Textures/grass01.jpg");
 	texture Texture2 = textureManager->loadTextureFromFile("content/Textures/skysphere01.jpg");
 

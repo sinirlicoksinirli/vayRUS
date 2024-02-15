@@ -151,12 +151,14 @@ void UreTechEngine::networkSystem::sendRecvToServer()
     EngineERROR::consoleError(std::string("(DEBUG): return:")+std::to_string(n), EngineERROR::INFO_NORMAL);
     if (n >= 0) {
         printf("%s\n", buffer);
-
-        EngineERROR::consoleError("(DEBUG): enter message", EngineERROR::INFO_NORMAL);
-        fgets(buffer, 255, stdin);
+        if (n != 9) {
+            EngineERROR::consoleError(std::string("(Network Socket): Package is not valid! <13 bytes"), EngineERROR::ERROR_NORMAL);
+        }
     }
+    EngineERROR::consoleError("(DEBUG): enter message", EngineERROR::INFO_NORMAL);
+    fgets(buffer, 255, stdin);
 
-    n = send(sock, buffer, strlen(buffer), 0);
+    n = send(sock, buffer, sizeof(buffer), 0);
     EngineERROR::consoleError(std::string(buffer), EngineERROR::ERROR_ERROR);
     if (n < 0) {
         EngineERROR::consoleError(std::string("(Network Socket): Can not write to server!"), EngineERROR::ERROR_NORMAL);
@@ -170,12 +172,17 @@ void UreTechEngine::networkSystem::sendRecvToClient()
 
         // This send() function sends the 13 bytes of the string to the new socket
         clientData* toSendSock = (clientData*)clientSocks.getIndex(i);
-        send(toSendSock->sock, "OK! BROO", 13, 0);
+        send(toSendSock->sock, "OK! BROO", 9, 0);
 
         int n;
         n = recv(toSendSock->sock, buffer, 255, 0);
+
         if (n >= 0) {
+            EngineERROR::consoleError(std::string("(DEBUG): return:") + std::to_string(n), EngineERROR::INFO_NORMAL);
             EngineERROR::consoleError(std::string("(Network Socket): Read to socket:") + std::string(buffer), EngineERROR::INFO_NORMAL);
+            if (n != 255) {
+                EngineERROR::consoleError(std::string("(Network Socket): Package is not valid! <13 bytes"), EngineERROR::ERROR_NORMAL);
+            }
         }
         /*if (n < 0) {
             EngineERROR::consoleError(std::string("(Network Socket): Failed read socket"), EngineERROR::WARN_CAN_CAUSE_ERROR);
