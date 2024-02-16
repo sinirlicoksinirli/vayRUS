@@ -1,6 +1,7 @@
 #include"MeshManager.hpp"
 #include"vertexStructs.hpp"
 #include<vector>
+#include "../utils/errOut.h"
 
 MeshManager* MeshManager::c_Instance = nullptr;
 	
@@ -30,6 +31,7 @@ mesh* MeshManager::importMeshFbx(std::string filePath,texture _text)
 		return nullptr;
 	}
 	std::vector<triangleFace> faces;
+	int textureCount;
 
 	while (1) {
 		char lineHeader[128];
@@ -53,6 +55,10 @@ mesh* MeshManager::importMeshFbx(std::string filePath,texture _text)
 			fscanf(file, "%f %f %f\n", &normal.x, &normal.y, &normal.z);
 			temp_normals.push_back(normal);
 		}
+		else if (strcmp(lineHeader, "usemtl") == 0) {
+			UreTechEngine::EngineERROR::consoleError("(Mesh Loader): Found new texture!", UreTechEngine::EngineERROR::INFO_NORMAL);
+			textureCount++;
+		}
 		else if (strcmp(lineHeader, "f") == 0) {
 			std::string vertex1, vertex2, vertex3;
 			unsigned int vertexIndex[3], uvIndex[3], normalIndex[3];
@@ -74,9 +80,9 @@ mesh* MeshManager::importMeshFbx(std::string filePath,texture _text)
 	
 	for (unsigned int a = 0; a < vertexIndices.size(); a+=3) {
 		triangleFace face;
-		face.v0 = Vertex(temp_vertices[vertexIndices[(a)]], temp_uvs[uvIndices[(a)]], temp_normals[normalIndices[(a)]]);
-		face.v1 = Vertex(temp_vertices[vertexIndices[(a)+1]], temp_uvs[uvIndices[(a) + 1]], temp_normals[normalIndices[(a) + 1]]);
-		face.v2 = Vertex(temp_vertices[vertexIndices[(a)+2]], temp_uvs[uvIndices[(a) + 2]], temp_normals[normalIndices[(a) + 2]]);
+		face.v0 = Vertex(temp_vertices[vertexIndices[(a)]], temp_uvs[uvIndices[(a)]], temp_normals[normalIndices[(a)]], textureCount);
+		face.v1 = Vertex(temp_vertices[vertexIndices[(a)+1]], temp_uvs[uvIndices[(a) + 1]], temp_normals[normalIndices[(a) + 1]], textureCount);
+		face.v2 = Vertex(temp_vertices[vertexIndices[(a)+2]], temp_uvs[uvIndices[(a) + 2]], temp_normals[normalIndices[(a) + 2]], textureCount);
 		faces.push_back(face);
 		finalIndices.push_back((a));
 		finalIndices.push_back((a) + 1);

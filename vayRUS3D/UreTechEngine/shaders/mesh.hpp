@@ -6,6 +6,7 @@
 #include"../UreTechEngine/shaders/textureSystem.hpp"
 #include"../UreTechEngine/utils/baseVector.h"
 #include"../UreTechEngine/player/player.h"
+#include"../utils/Array.hpp"
 
 
 #include<glad/glad.h>
@@ -15,8 +16,12 @@
 namespace UreTechEngine {
 	class Player;
 }
+class TextureManager;
+typedef unsigned int texture;
 class mesh {
 public:
+	UreTechEngine::Array textures;
+	bool useMultipleTexture = false;
 	UreTechEngine::Transform3D transform;
 	void draw(UreTechEngine::Transform3D _addTrnsfm);
 	void applyTexture(texture _text);

@@ -1,5 +1,7 @@
 #include"shaderSystem.hpp"
 #include<glm/mat3x3.hpp>
+#include"../utils/errOut.h"
+
 ShaderProgram::ShaderProgram()
 {
 	programID = glCreateProgram();
@@ -44,6 +46,11 @@ void ShaderProgram::setBool(const std::string& varName, bool val)
 	glUniform1i(m_UniformVars[varName], val);
 }
 
+void ShaderProgram::setInt(const std::string& varName, int val)
+{
+	glUniform1i(m_UniformVars[varName], val);
+}
+
 void ShaderProgram::setVec3(const std::string& varName, glm::vec3 val)
 {
 	glUniform3f(m_UniformVars[varName], val.x,val.y,val.z);
@@ -62,6 +69,12 @@ void ShaderProgram::setMat3(const std::string& varName, glm::mat3* val)
 void ShaderProgram::setMat4(const std::string& varName, glm::mat4* val)
 {
 	glUniformMatrix4fv(m_UniformVars[varName],1,false, (GLfloat*)val);
+}
+
+void ShaderProgram::setTexture(const std::string& varName, int _textureLvl)
+{
+	UreTechEngine::EngineERROR::consoleError(varName,UreTechEngine::EngineERROR::INFO_NORMAL);
+	glUniform1i(m_UniformVars[varName], _textureLvl);
 }
 
  void ShaderProgram::attachShader(const char* fileName, unsigned int shaderType)

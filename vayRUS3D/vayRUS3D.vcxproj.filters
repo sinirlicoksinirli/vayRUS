@@ -123,12 +123,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="baseVS.glsl">
-      <Filter>Source Files\UreTechEngine\shaders</Filter>
-    </None>
-    <None Include="baseFS.glsl">
-      <Filter>Source Files\UreTechEngine\shaders</Filter>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="imgui\imstb_truetype.h">

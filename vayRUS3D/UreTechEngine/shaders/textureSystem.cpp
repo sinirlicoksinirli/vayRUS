@@ -16,6 +16,10 @@ TextureManager* TextureManager::getInstance()
 		return c_Instance;
 	}
 	c_Instance = new TextureManager();
+
+	c_Instance->engine = UreTechEngine::UreTechEngineClass::getEngine();
+	c_Instance->shaderProg = c_Instance->engine->getShaderProgram();
+
 	return c_Instance;
 }
 
@@ -50,10 +54,11 @@ unsigned int TextureManager::loadTextureFromFile(std::string fileName)
 	return texID;
 }
 
-void TextureManager::applyTexture(unsigned int levelInd, unsigned int textureId)
+void TextureManager::applyTexture(int levelInd, unsigned int textureId)
 {
 	glActiveTexture(levelInd);
 	glBindTexture(GL_TEXTURE_2D, textureId);
+	shaderProg->setTexture(std::string("texture") + std::to_string(levelInd - GL_TEXTURE0), levelInd - GL_TEXTURE0);
 }
 
 

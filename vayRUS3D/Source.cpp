@@ -61,23 +61,23 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 		glfwSetWindowShouldClose(window,1);
 	}
 	if (key == GLFW_KEY_W && rClickL) {
-		vector3 change = Math3D::addWithRotation(player->CameraTranform.Rotation, vector3(0.1f, 0.0f, 0.0f), vector3(editorCamPos[0], editorCamPos[1], editorCamPos[2]));
+		vector3 change = Math3D::addWithRotation(player->CameraTranform.Rotation, vector3(1.0f, 0.0f, 0.0f), vector3(editorCamPos[0], editorCamPos[1], editorCamPos[2]));
 		editorCamPos[0] = change.fx();
 		editorCamPos[1] = change.fy();
 	}
 	if (key == GLFW_KEY_S && rClickL) {
-		vector3 change = Math3D::addWithRotation(player->CameraTranform.Rotation, vector3(-0.1f, 0.0f, 0.0f), vector3(editorCamPos[0], editorCamPos[1], editorCamPos[2]));
+		vector3 change = Math3D::addWithRotation(player->CameraTranform.Rotation, vector3(-1.0f, 0.0f, 0.0f), vector3(editorCamPos[0], editorCamPos[1], editorCamPos[2]));
 		editorCamPos[0] = change.fx();
 		editorCamPos[1] = change.fy();
 	}
 
 	if (key == GLFW_KEY_D && rClickL) {
-		vector3 change = Math3D::addWithRotation(player->CameraTranform.Rotation, vector3(0.0f, 0.1f, 0.0f), vector3(editorCamPos[0], editorCamPos[1], editorCamPos[2]));
+		vector3 change = Math3D::addWithRotation(player->CameraTranform.Rotation, vector3(0.0f, 1.0f, 0.0f), vector3(editorCamPos[0], editorCamPos[1], editorCamPos[2]));
 		editorCamPos[0] = change.fx();
 		editorCamPos[1] = change.fy();
 	}
 	if (key == GLFW_KEY_A && rClickL) {
-		vector3 change = Math3D::addWithRotation(player->CameraTranform.Rotation, vector3(0.0f, -0.1f, 0.0f), vector3(editorCamPos[0], editorCamPos[1], editorCamPos[2]));
+		vector3 change = Math3D::addWithRotation(player->CameraTranform.Rotation, vector3(0.0f, -1.0f, 0.0f), vector3(editorCamPos[0], editorCamPos[1], editorCamPos[2]));
 		editorCamPos[0] = change.fx();
 		editorCamPos[1] = change.fy();
 	}
@@ -94,6 +94,9 @@ void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
 		}
 	}
 }
+
+texture Texture0;
+texture Texture1;
 
 int main(int argc, char** argv) {
 	//init engine
@@ -116,32 +119,38 @@ int main(int argc, char** argv) {
 	//******
 
 	//textures
-	texture Texture0 = textureManager->loadTextureFromFile("content/Textures/susTM.png");
-	texture Texture1 = textureManager->loadTextureFromFile("content/Textures/bodycolor.png");
+	Texture0 = textureManager->loadTextureFromFile("content/Textures/susTM.png");
+	Texture1 = textureManager->loadTextureFromFile("content/Textures/bodycolor.png");
 	texture grass01Texture = textureManager->loadTextureFromFile("content/Textures/grass01.jpg");
 	texture Texture2 = textureManager->loadTextureFromFile("content/Textures/skysphere01.jpg");
 
 	mesh* mesh0 = meshManager->importMeshFbx("content/Meshs/flaty.obj", grass01Texture);
-	mesh* mesh1 = meshManager->importMeshFbx("content/Meshs/cube.obj", Texture0);
+	mesh* mesh1 = meshManager->importMeshFbx("content/Meshs/cube2TexTest.obj", Texture0);
+	mesh1->useMultipleTexture = true;
+	texture* tex = new texture;
+	*tex = Texture0;
+	mesh1->textures.addElement(tex);
+	mesh1->textures.addElement(&Texture1);
+	mesh1->changeLitRender(false);
 	mesh* mesh3 = meshManager->importMeshFbx("content/Meshs/alyx.obj", Texture1);
 	mesh* mesh2 = meshManager->importMeshFbx("content/Meshs/skysphere.obj", Texture2);
 
 	player->CameraTranform.Location.x = -1.0f;
 	player->CameraTranform.Location.y = 0.0f;
-	player->CameraTranform.Location.z = 1.5f;
+	player->CameraTranform.Location.z = 50.0f;
 
-	Transform3D a(vector3(0.0f, 0.0f, -1.0f), Rotation(0.0f, 0.0f, 0.0f), vector3(1.0f, 1.0f, 1.0f));
-	Transform3D b(vector3(-1.0f, 1.0f, -0.6f), Rotation(90.0f, 0.0f, 0.0f), vector3(0.3f, 0.3f, 0.3f));
-	Transform3D c(vector3(1.0f, -1.0f, -0.6f), Rotation(90.0f, 0.0f, 0.0f), vector3(0.3f, 0.3f, 0.3f));
-	Transform3D d(vector3(-1.0f, -1.0f, -0.6f), Rotation(90.0f, 0.0f, 0.0f), vector3(0.3f, 0.3f, 0.3f));
+	Transform3D a(vector3(0.0f, 0.0f, -1.0f), Rotation(0.0f, 0.0f, 0.0f), vector3(10.0f, 10.0f, 10.0f));
+	Transform3D b(vector3(-1.0f, 1.0f, -0.6f), Rotation(90.0f, 0.0f, 0.0f), vector3(1.0f, 1.0f, 1.0f));
+	Transform3D c(vector3(1.0f, -1.0f, -0.6f), Rotation(0.0f, 0.0f, 0.0f), vector3(1.0f, 1.0f, 1.0f));
+	Transform3D d(vector3(-1.0f, -1.0f, -0.6f), Rotation(90.0f, 0.0f, 0.0f), vector3(30.0f, 30.0f, 30.0f));
 	Transform3D e(vector3(0.0f, 0.0f, 0.0f), Rotation(-30.0f, -90.0f, 0.0f), vector3(1.0f, 1.0f, 1.0f));
 
-	TestDumy = engine->spawnEntity(new entity(a.Location,a.Rotation,a.Scale, mesh0,"Dummy1"));
-	engine->spawnEntity(new entity(b.Location, b.Rotation, b.Scale, mesh1, "Dummy2"));
-	engine->spawnEntity(new entity(c.Location, c.Rotation, c.Scale, mesh3, "Dummy3"));
-	engine->spawnEntity(new entity(d.Location, d.Rotation, d.Scale, mesh1, "Dummy4"));
+	TestDumy = engine->spawnEntity(new entity(a.Location,a.Rotation,a.Scale, mesh0,"flat"));
+	engine->spawnEntity(new entity(b.Location, b.Rotation, b.Scale, mesh1, "cube0"));
+	engine->spawnEntity(new entity(c.Location, c.Rotation, c.Scale, mesh3, "cube1"));
+	engine->spawnEntity(new entity(d.Location, d.Rotation, d.Scale, mesh1, "cube2"));
 	mesh2->changeLitRender(false);
-	engine->spawnEntity(new entity(e.Location, e.Rotation, e.Scale, mesh2, "Dummy5"));
+	engine->spawnEntity(new entity(e.Location, e.Rotation, e.Scale, mesh2, "skysphere"));
 
 	float rot = 0;
 
@@ -157,12 +166,6 @@ int main(int argc, char** argv) {
 	float editorTransformScl[3] = { 1.0f,1.0f,1.0f };
 
 	entity* selectedEntityEngine = nullptr;
-	/*if (engine->isServer) {
-		networkSystem::getNetworkSystem()->startServer();
-	}
-	else {
-		networkSystem::getNetworkSystem()->connectToServer();
-	}*/
 
 	//net ui vars
 	char toConnectIP_UIChar[150];
@@ -205,7 +208,7 @@ int main(int argc, char** argv) {
 
 		player->CameraTranform.Location.x = editorCamPos[0];
 		player->CameraTranform.Location.y = editorCamPos[1];
-		player->CameraTranform.Location.z = editorCamPos[2];
+		//player->CameraTranform.Location.z = editorCamPos[2];
 
 		player->updateCamera();
 
@@ -354,7 +357,7 @@ int main(int argc, char** argv) {
 		UreTechEngine::UreTechEngineClass::displayWidth = display_w;
 		UreTechEngine::UreTechEngineClass::displayHeight = display_h;
 
-		glfwSwapInterval(1);
+		glfwSwapInterval(0);
 		glfwSwapBuffers(window);
 		glfwPollEvents();
 	}

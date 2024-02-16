@@ -18,3 +18,11 @@ Vertex::Vertex(glm::vec3 _pos, glm::vec2 _uv, glm::vec3 _norm)
 	tex = _uv;
 	norm = _norm;
 }
+
+Vertex::Vertex(glm::vec3 _pos, glm::vec2 _uv, glm::vec3 _norm, int texInd)
+{
+	pos = _pos;
+	tex = _uv;
+	norm = _norm;
+	textureIndex = texInd;
+}

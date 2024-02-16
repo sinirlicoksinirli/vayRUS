@@ -11,7 +11,9 @@
 
  uniform bool litRender;  
 
- uniform sampler2D inTexture;
+ flat in int vertTextureLevel;
+
+uniform sampler2DArray textures;
 
  void main()
 {
@@ -26,9 +28,48 @@
         float brightness = 0.2;
         vec4 brightnessLvl = (brightness+diffuse) * lc;
 
-        fragColor = texture2D(inTexture,texCoord)*brightnessLvl;
+        switch (vertTextureLevel) {
+            case 0:
+                fragColor = texture2D(texture0,texCoord)*brightnessLvl;
+                break;
+            case 1:
+                fragColor = texture2D(texture1,texCoord)*brightnessLvl;
+                break;
+            case 2:
+                fragColor = texture2D(texture2,texCoord)*brightnessLvl;
+                break;
+            case 3:
+                fragColor = texture2D(texture3,texCoord)*brightnessLvl;
+                break;
+            case 4:
+                fragColor = texture2D(texture4,texCoord)*brightnessLvl;
+                break;
+            case 5:
+                fragColor = texture2D(texture5,texCoord)*brightnessLvl;
+                break;
+        }
+
 
     }else{
-        fragColor = texture2D(inTexture,texCoord);
+        switch (vertTextureLevel) {
+            case 0:
+                fragColor = texture2D(texture0,texCoord);
+                break;
+            case 1:
+                fragColor = texture2D(texture1,texCoord);
+                break;
+            case 2:
+                fragColor = texture2D(texture2,texCoord);
+                break;
+            case 3:
+                fragColor = texture2D(texture3,texCoord);
+                break;
+            case 4:
+                fragColor = texture2D(texture4,texCoord);
+                break;
+            case 5:
+                fragColor = texture2D(texture5,texCoord);
+                break;
+        }
     }
 }

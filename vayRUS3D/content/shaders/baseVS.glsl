@@ -3,6 +3,7 @@
  layout (location = 0) in vec3 inPosition;
  layout (location = 1) in vec2 inTexCoord;
  layout (location = 2) in vec3 inNormDat;
+ layout (location = 3) in int inTexLvl;
 
  uniform vec3 uTranslation;
  uniform vec3 uRotation;
@@ -16,6 +17,7 @@
  out vec2 texCoord;
  out vec3 FragPos; 
  out vec3 Normal;
+ out int vertTextureLevel;
 
  mat4 rotationX( in float angle ) {
 	return mat4(	1.0,		0,			0,			0,
@@ -59,6 +61,6 @@ mat4 rotationZ( in float angle ) {
     gl_Position = uMtxProj*camRotMatr*uMtxCam*inverse(uMtxCamPos)*model*vec4(inPosition, 1.0);
     texCoord = inTexCoord;
 	FragPos = vec3(model*vec4(inPosition, 1.0));
-	 
-	Normal =mat3(transpose(inverse(model))) * inNormDat; ;
+	Normal =mat3(transpose(inverse(model))) * inNormDat;
+	vertTextureLevel = inTexLvl;
 }

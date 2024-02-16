@@ -51,6 +51,14 @@ UreTechEngine::UreTechEngineClass* UreTechEngine::UreTechEngineClass::getEngine(
 		c_Instance->mainShaderProgram->addUniform("litRender");
 		c_Instance->mainShaderProgram->addUniform("lightPos");
 
+		c_Instance->mainShaderProgram->addUniform("vertTextureLevel");
+		c_Instance->mainShaderProgram->addUniform("texture0");
+		c_Instance->mainShaderProgram->addUniform("texture1");
+		c_Instance->mainShaderProgram->addUniform("texture2");
+		c_Instance->mainShaderProgram->addUniform("texture3");
+		c_Instance->mainShaderProgram->addUniform("texture4");
+		c_Instance->mainShaderProgram->addUniform("texture5");
+
 		glEnable(GL_DEPTH_TEST);
 		glEnable(GL_CULL_FACE);
 		glCullFace(GL_FRONT);

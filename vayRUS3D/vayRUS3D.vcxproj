@@ -222,8 +222,6 @@
     <ClCompile Include="vayrusCube.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="baseFS.glsl" />
-    <None Include="baseVS.glsl" />
     <CopyFileToFolders Include="content\shaders\baseFS.glsl">
       <FileType>Document</FileType>
       <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)content/shaders/</DestinationFolders>
