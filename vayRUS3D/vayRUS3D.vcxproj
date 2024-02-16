@@ -224,6 +224,14 @@
   <ItemGroup>
     <None Include="baseFS.glsl" />
     <None Include="baseVS.glsl" />
+    <CopyFileToFolders Include="content\shaders\baseFS.glsl">
+      <FileType>Document</FileType>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)content/shaders/</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="content\shaders\baseVS.glsl">
+      <FileType>Document</FileType>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)content/shaders/</DestinationFolders>
+    </CopyFileToFolders>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -260,7 +268,66 @@
     <ResourceCompile Include="vayRUS3D.rc" />
   </ItemGroup>
   <ItemGroup>
+    <CopyFileToFolders Include="content\Textures\grass01.jpg">
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)content/Textures/</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="content\Textures\icon.png">
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)content/Textures/</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="content\Textures\skysphere01.jpg">
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)content/Textures/</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="content\Textures\sus.png">
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)content/Textures/</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="content\Textures\susTM.png">
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)content/Textures/</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="content\Textures\text.jpg">
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)content/Textures/</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="content\Textures\text2.png">
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)content/Textures/</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="content\Textures\wood01.jpg">
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)content/Textures/</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="content\Textures\bodycolor.png">
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)content/Textures/</DestinationFolders>
+    </CopyFileToFolders>
     <Image Include="icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <CopyFileToFolders Include="content\Meshs\a.obj">
+      <FileType>Document</FileType>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)content/Meshs/</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="content\Meshs\cube.obj">
+      <FileType>Document</FileType>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)content/Meshs/</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="content\Meshs\flaty.obj">
+      <FileType>Document</FileType>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)content/Meshs/</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="content\Meshs\skysphere.obj">
+      <FileType>Document</FileType>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)content/Meshs/</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="content\Meshs\test.obj">
+      <FileType>Document</FileType>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)content/Meshs/</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="content\Meshs\yes.obj">
+      <FileType>Document</FileType>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)content/Meshs/</DestinationFolders>
+    </CopyFileToFolders>
+  </ItemGroup>
+  <ItemGroup>
+    <CopyFileToFolders Include="content\Meshs\alyx.obj">
+      <FileType>Document</FileType>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)content/Meshs/</DestinationFolders>
+    </CopyFileToFolders>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets" />

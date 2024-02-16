@@ -117,12 +117,13 @@ int main(int argc, char** argv) {
 
 	//textures
 	texture Texture0 = textureManager->loadTextureFromFile("content/Textures/susTM.png");
-	texture Texture1 = textureManager->loadTextureFromFile("content/Textures/sus.png");
+	texture Texture1 = textureManager->loadTextureFromFile("content/Textures/bodycolor.png");
 	texture grass01Texture = textureManager->loadTextureFromFile("content/Textures/grass01.jpg");
 	texture Texture2 = textureManager->loadTextureFromFile("content/Textures/skysphere01.jpg");
 
 	mesh* mesh0 = meshManager->importMeshFbx("content/Meshs/flaty.obj", grass01Texture);
 	mesh* mesh1 = meshManager->importMeshFbx("content/Meshs/cube.obj", Texture0);
+	mesh* mesh3 = meshManager->importMeshFbx("content/Meshs/alyx.obj", Texture1);
 	mesh* mesh2 = meshManager->importMeshFbx("content/Meshs/skysphere.obj", Texture2);
 
 	player->CameraTranform.Location.x = -1.0f;
@@ -130,14 +131,14 @@ int main(int argc, char** argv) {
 	player->CameraTranform.Location.z = 1.5f;
 
 	Transform3D a(vector3(0.0f, 0.0f, -1.0f), Rotation(0.0f, 0.0f, 0.0f), vector3(1.0f, 1.0f, 1.0f));
-	Transform3D b(vector3(-1.0f, 1.0f, -0.6f), Rotation(0.0f, 0.0f, 0.0f), vector3(0.3f, 0.3f, 0.3f));
-	Transform3D c(vector3(1.0f, -1.0f, -0.6f), Rotation(0.0f, 0.0f, 0.0f), vector3(0.3f, 0.3f, 0.3f));
-	Transform3D d(vector3(-1.0f, -1.0f, -0.6f), Rotation(0.0f, 0.0f, 0.0f), vector3(0.3f, 0.3f, 0.3f));
+	Transform3D b(vector3(-1.0f, 1.0f, -0.6f), Rotation(90.0f, 0.0f, 0.0f), vector3(0.3f, 0.3f, 0.3f));
+	Transform3D c(vector3(1.0f, -1.0f, -0.6f), Rotation(90.0f, 0.0f, 0.0f), vector3(0.3f, 0.3f, 0.3f));
+	Transform3D d(vector3(-1.0f, -1.0f, -0.6f), Rotation(90.0f, 0.0f, 0.0f), vector3(0.3f, 0.3f, 0.3f));
 	Transform3D e(vector3(0.0f, 0.0f, 0.0f), Rotation(-30.0f, -90.0f, 0.0f), vector3(1.0f, 1.0f, 1.0f));
 
 	TestDumy = engine->spawnEntity(new entity(a.Location,a.Rotation,a.Scale, mesh0,"Dummy1"));
 	engine->spawnEntity(new entity(b.Location, b.Rotation, b.Scale, mesh1, "Dummy2"));
-	engine->spawnEntity(new entity(c.Location, c.Rotation, c.Scale, mesh1, "Dummy3"));
+	engine->spawnEntity(new entity(c.Location, c.Rotation, c.Scale, mesh3, "Dummy3"));
 	engine->spawnEntity(new entity(d.Location, d.Rotation, d.Scale, mesh1, "Dummy4"));
 	mesh2->changeLitRender(false);
 	engine->spawnEntity(new entity(e.Location, e.Rotation, e.Scale, mesh2, "Dummy5"));

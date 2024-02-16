@@ -40,6 +40,18 @@
     <Filter Include="Source Files\UreTechEngine\network">
       <UniqueIdentifier>{dd871dd1-86f0-4323-8df5-e46eedd0ad67}</UniqueIdentifier>
     </Filter>
+    <Filter Include="content">
+      <UniqueIdentifier>{f3777729-a023-4b06-b212-1a0eddf69952}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="content\Meshs">
+      <UniqueIdentifier>{7664bd27-32f1-4d66-9216-0ce8bb6ef425}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="content\shaders">
+      <UniqueIdentifier>{f57a6ddb-186e-4451-b65c-c2023dfef1ec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="content\Textures">
+      <UniqueIdentifier>{f3c9e414-9381-45a3-b708-906a6cd36e1b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="imgui\imgui.cpp">
@@ -213,5 +225,61 @@
     <Image Include="icon.ico">
       <Filter>Resource Files</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <CopyFileToFolders Include="content\Meshs\a.obj">
+      <Filter>content\Meshs</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="content\Meshs\cube.obj">
+      <Filter>content\Meshs</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="content\Meshs\flaty.obj">
+      <Filter>content\Meshs</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="content\Meshs\skysphere.obj">
+      <Filter>content\Meshs</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="content\Meshs\test.obj">
+      <Filter>content\Meshs</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="content\Meshs\yes.obj">
+      <Filter>content\Meshs</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="content\Textures\grass01.jpg">
+      <Filter>content\Textures</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="content\Textures\icon.png">
+      <Filter>content\Textures</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="content\Textures\skysphere01.jpg">
+      <Filter>content\Textures</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="content\Textures\sus.png">
+      <Filter>content\Textures</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="content\Textures\susTM.png">
+      <Filter>content\Textures</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="content\Textures\text.jpg">
+      <Filter>content\Textures</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="content\Textures\text2.png">
+      <Filter>content\Textures</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="content\Textures\wood01.jpg">
+      <Filter>content\Textures</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="content\shaders\baseFS.glsl">
+      <Filter>content\shaders</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="content\shaders\baseVS.glsl">
+      <Filter>content\shaders</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="content\Meshs\alyx.obj">
+      <Filter>content\Meshs</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="content\Textures\bodycolor.png">
+      <Filter>content\Textures</Filter>
+    </CopyFileToFolders>
   </ItemGroup>
 </Project>
