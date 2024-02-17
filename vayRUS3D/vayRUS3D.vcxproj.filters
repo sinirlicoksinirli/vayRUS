@@ -52,6 +52,9 @@
     <Filter Include="content\Textures">
       <UniqueIdentifier>{f3c9e414-9381-45a3-b708-906a6cd36e1b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\vayRUSContent\PlayerPawn">
+      <UniqueIdentifier>{113eb57b-4347-4c5d-aeb3-8baf8e568dd8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="imgui\imgui.cpp">
@@ -119,6 +122,9 @@
     </ClCompile>
     <ClCompile Include="UreTechEngine\EngineBase.cpp">
       <Filter>Source Files\UreTechEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="MyPlayerPawn.cpp">
+      <Filter>Source Files\vayRUSContent\PlayerPawn</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -209,6 +215,9 @@
     <ClInclude Include="UreTechEngine\EngineBase.h">
       <Filter>Source Files\UreTechEngine</Filter>
     </ClInclude>
+    <ClInclude Include="MyPlayerPawn.h">
+      <Filter>Source Files\vayRUSContent\PlayerPawn</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="vayRUS3D.rc">
@@ -274,6 +283,9 @@
     </CopyFileToFolders>
     <CopyFileToFolders Include="content\Textures\bodycolor.png">
       <Filter>content\Textures</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="content\Meshs\defaultCapsule.obj">
+      <Filter>content\Meshs</Filter>
     </CopyFileToFolders>
   </ItemGroup>
 </Project>

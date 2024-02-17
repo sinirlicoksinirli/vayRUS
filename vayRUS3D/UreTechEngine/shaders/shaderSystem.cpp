@@ -34,6 +34,7 @@ void ShaderProgram::use()
 void ShaderProgram::addUniform(const std::string& varName)
 {
 	m_UniformVars[varName] = glGetUniformLocation(programID, varName.c_str());
+	UreTechEngine::EngineERROR::consoleError(varName + std::to_string(m_UniformVars[varName]), UreTechEngine::EngineERROR::INFO_NORMAL);
 }
 
 void ShaderProgram::setFloat(const std::string& varName, float val)
@@ -73,7 +74,7 @@ void ShaderProgram::setMat4(const std::string& varName, glm::mat4* val)
 
 void ShaderProgram::setTexture(const std::string& varName, int _textureLvl)
 {
-	UreTechEngine::EngineERROR::consoleError(varName,UreTechEngine::EngineERROR::INFO_NORMAL);
+	//UreTechEngine::EngineERROR::consoleError(varName + std::to_string(m_UniformVars[varName]),UreTechEngine::EngineERROR::INFO_NORMAL);
 	glUniform1i(m_UniformVars[varName], _textureLvl);
 }
 

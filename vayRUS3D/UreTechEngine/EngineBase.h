@@ -17,6 +17,7 @@
 class mesh;
 namespace UreTechEngine {
 	class entity;
+	class Player;
 	class UreTechEngineClass {
 	public:
 		static unsigned int displayWidth;

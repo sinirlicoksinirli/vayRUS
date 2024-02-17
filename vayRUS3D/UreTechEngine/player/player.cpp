@@ -5,8 +5,18 @@
 
 void UreTechEngine::Player::updateCamera()
 {
-	glm::vec3 camPos(CameraTranform.Location.fx(), CameraTranform.Location.fy(), CameraTranform.Location.fz());
-	Rotation camRot = CameraTranform.Rotation;
+	glm::vec3 camPos;
+	Rotation camRot;
+	if (playerPawn != nullptr) {
+		camPos = glm::vec3(CameraTranform.Location.fx() + playerPawn->transform.Location.x, CameraTranform.Location.fy() + playerPawn->transform.Location.y, CameraTranform.Location.fz() + playerPawn->transform.Location.z);
+		camRot.roll = CameraTranform.Rotation.roll + playerPawn->transform.Rotation.roll;
+		camRot.pitch = CameraTranform.Rotation.pitch + playerPawn->transform.Rotation.pitch;
+		camRot.yaw = CameraTranform.Rotation.yaw + playerPawn->transform.Rotation.yaw;
+	}
+	else {
+		camPos = glm::vec3(CameraTranform.Location.fx(), CameraTranform.Location.fy(), CameraTranform.Location.fz());
+		camRot = CameraTranform.Rotation;
+	}
 	
 	mtxCamPos = glm::translate(glm::mat4(1),camPos);
 	CamRot = glm::vec3(camRot.fRoll(), camRot.fPitch(), camRot.fYaw());//ilk bu çarp

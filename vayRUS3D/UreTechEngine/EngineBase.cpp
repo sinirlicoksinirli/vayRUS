@@ -5,6 +5,7 @@
 #include<glm/mat4x4.hpp>
 #include<glm/gtc/matrix_transform.hpp>
 #include"player/player.h"
+#include "utils/errOut.h"
 
 UreTechEngine::UreTechEngineClass* UreTechEngine::UreTechEngineClass::c_Instance = nullptr;
 unsigned int UreTechEngine::UreTechEngineClass::displayWidth = 1000;
@@ -51,7 +52,7 @@ UreTechEngine::UreTechEngineClass* UreTechEngine::UreTechEngineClass::getEngine(
 		c_Instance->mainShaderProgram->addUniform("litRender");
 		c_Instance->mainShaderProgram->addUniform("lightPos");
 
-		c_Instance->mainShaderProgram->addUniform("vertTextureLevel");
+		//c_Instance->mainShaderProgram->addUniform("inTexLvl");
 		c_Instance->mainShaderProgram->addUniform("texture0");
 		c_Instance->mainShaderProgram->addUniform("texture1");
 		c_Instance->mainShaderProgram->addUniform("texture2");
@@ -60,10 +61,10 @@ UreTechEngine::UreTechEngineClass* UreTechEngine::UreTechEngineClass::getEngine(
 		c_Instance->mainShaderProgram->addUniform("texture5");
 
 		glEnable(GL_DEPTH_TEST);
-		glEnable(GL_CULL_FACE);
+		/*glEnable(GL_CULL_FACE);
 		glCullFace(GL_FRONT);
 		glFrontFace(GL_CW);
-
+		*/
 		glfwWindowHint(GLFW_SAMPLES, 4);
 		glEnable(GL_MULTISAMPLE);
 		//******
@@ -98,6 +99,7 @@ UreTechEngine::entity* UreTechEngine::UreTechEngineClass::spawnEntity(entity* _t
 {
 	_toSpawn->init(this);
 	_toSpawn->begin();
+	UreTechEngine::EngineERROR::consoleError(_toSpawn->entName, UreTechEngine::EngineERROR::INFO_NORMAL);
 	sceneEntities[countOfEntity] = _toSpawn;
 	countOfEntity++;
 	return sceneEntities[countOfEntity-1];

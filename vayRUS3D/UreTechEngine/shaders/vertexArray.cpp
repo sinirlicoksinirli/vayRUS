@@ -39,22 +39,25 @@ void vertexArrayObject::createObject(Vertex& vertices, unsigned int verticesCoun
 	glBufferData(GL_ARRAY_BUFFER, sizeof(Vertex) * verticesCount, &vertices, GL_STATIC_DRAW);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices)* indicesCount, &indices, GL_STATIC_DRAW);
 	indexCount = indicesCount;
-	//vertex bilgisi
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 9, (void*)0);
-	glEnableVertexAttribArray(0);
-	//texture bilgisi
-	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 9, (void*)(3 * sizeof(float)));
-	glEnableVertexAttribArray(1);
-	//normal bilgisi
-	glVertexAttribPointer(2, 3, GL_FLOAT, GL_TRUE, sizeof(float) * 9, (void*)(5 * sizeof(float)));
-	glEnableVertexAttribArray(2);
-	//texture level bilgisi
-	glVertexAttribPointer(3, 1, GL_INT, GL_FALSE, sizeof(float) * 9, (void*)(8 * sizeof(float)));
-	glEnableVertexAttribArray(3);
 
-	t_Attirbs.push_back(0);
-	t_Attirbs.push_back(1);
-	t_Attirbs.push_back(2);
+	size_t p_bufSize = (sizeof(float) * 8) + sizeof(int);
+
+	//vertex bilgisi
+	glEnableVertexAttribArray(0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, p_bufSize, (void*)0);
+
+	//texture bilgisi
+	glEnableVertexAttribArray(1);
+	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, p_bufSize, (void*)(3 * sizeof(float)));
+	
+	//normal bilgisi
+	glEnableVertexAttribArray(2);
+	glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, p_bufSize, (void*)(5 * sizeof(float)));
+	
+	//texture level bilgisi
+	glEnableVertexAttribArray(3);
+	
+	glVertexAttribPointer(3, 2, GL_FLOAT, GL_FALSE, p_bufSize, (void*)(8 * sizeof(float)));
 }
 
 void vertexArrayObject::activateBuffer()

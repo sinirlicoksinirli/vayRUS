@@ -15,51 +15,20 @@
 
 void mesh::draw(UreTechEngine::Transform3D _addTrnsfm)
 {
-	if (useMultipleTexture) {
-		if (textures.size()==1) {
-			textManager->applyTexture(GL_TEXTURE0, (texture)textures.getIndex(0));
-		}
-		else if (textures.size() == 2) {
-			textManager->applyTexture(GL_TEXTURE0, (texture)textures.getIndex(0));
-			textManager->applyTexture(GL_TEXTURE1, (texture)textures.getIndex(1));
+	shaderProg->setTexture("texture0", 0);
+	shaderProg->setTexture("texture1", 1);
+	shaderProg->setTexture("texture2", 2);
+	shaderProg->setTexture("texture3", 3);
+	shaderProg->setTexture("texture4", 4);
+	shaderProg->setTexture("texture5", 5);
 
-		}
-		else if (textures.size() == 3) {
-			textManager->applyTexture(GL_TEXTURE0, (texture)textures.getIndex(0));
-			textManager->applyTexture(GL_TEXTURE1, (texture)textures.getIndex(1));
-			textManager->applyTexture(GL_TEXTURE2, (texture)textures.getIndex(2));
-		}
-		else if (textures.size() == 4) {
-			textManager->applyTexture(GL_TEXTURE0, (texture)textures.getIndex(0));
-			textManager->applyTexture(GL_TEXTURE1, (texture)textures.getIndex(1));
-			textManager->applyTexture(GL_TEXTURE2, (texture)textures.getIndex(2));
-			textManager->applyTexture(GL_TEXTURE3, (texture)textures.getIndex(3));
-		}
-		else if (textures.size() == 5) {
-			textManager->applyTexture(GL_TEXTURE0, (texture)textures.getIndex(0));
-			textManager->applyTexture(GL_TEXTURE1, (texture)textures.getIndex(1));
-			textManager->applyTexture(GL_TEXTURE2, (texture)textures.getIndex(2));
-			textManager->applyTexture(GL_TEXTURE3, (texture)textures.getIndex(3));
-			textManager->applyTexture(GL_TEXTURE4, (texture)textures.getIndex(4));
-		}
-		else if (textures.size() == 6) {
-			textManager->applyTexture(GL_TEXTURE0, (texture)textures.getIndex(0));
-			textManager->applyTexture(GL_TEXTURE1, (texture)textures.getIndex(1));
-			textManager->applyTexture(GL_TEXTURE2, (texture)textures.getIndex(2));
-			textManager->applyTexture(GL_TEXTURE3, (texture)textures.getIndex(3));
-			textManager->applyTexture(GL_TEXTURE4, (texture)textures.getIndex(4));
-			textManager->applyTexture(GL_TEXTURE5, (texture)textures.getIndex(5));
-		}
-		else {
-			UreTechEngine::EngineERROR::consoleError("(Mesh): too much texture or no texture!", UreTechEngine::EngineERROR::ERROR_FATAL);
-		}
+	if (useMultipleTexture) {
+		textManager->applyMultipleTexture(textures);
 	}
 	else {
 		textManager->applyTexture(GL_TEXTURE0, TextureID);
-		shaderProg->setTexture(std::string("texture") + std::to_string(0), 0);
-
+		//shaderProg->setTexture(std::string("texture") + std::to_string(0), 0);
 	}
-
 	glm::vec3 TransformTransliton = glm::vec3(transform.Location.fx() + _addTrnsfm.Location.fx(), transform.Location.fy() + _addTrnsfm.Location.fy(), transform.Location.fz() + _addTrnsfm.Location.fz());
 	UreTechEngine::Rotation _rot;
 	_rot.roll += _addTrnsfm.Rotation.roll;
@@ -94,7 +63,6 @@ void mesh::changeLitRender(bool val)
 
 mesh::mesh(vertexArrayObject* _p_Vao, texture _text)
 {
-	textures.setElemSize(sizeof(texture));
 	p_Vao = _p_Vao;
 	indexCount = p_Vao->getIndexCount();
 	TextureID = _text;

@@ -8,6 +8,8 @@
 #include"../UreTechEngine/player/player.h"
 #include"../utils/Array.hpp"
 
+#include<vector>
+
 
 #include<glad/glad.h>
 #include <gl/GL.h>
@@ -20,7 +22,7 @@ class TextureManager;
 typedef unsigned int texture;
 class mesh {
 public:
-	UreTechEngine::Array textures;
+	std::vector<texture> textures;
 	bool useMultipleTexture = false;
 	UreTechEngine::Transform3D transform;
 	void draw(UreTechEngine::Transform3D _addTrnsfm);

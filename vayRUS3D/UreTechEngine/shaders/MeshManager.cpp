@@ -25,13 +25,15 @@ mesh* MeshManager::importMeshFbx(std::string filePath,texture _text)
 	std::vector< glm::vec3 > temp_vertices;
 	std::vector< glm::vec2 > temp_uvs;
 	std::vector< glm::vec3 > temp_normals;
+	std::vector< int > tmp_face_texture_index;
 
 	FILE* file = fopen(filePath.c_str(), "r");
 	if (file == NULL) {
+		UreTechEngine::EngineERROR::consoleError("(Mesh Loader): Can not open source file!", UreTechEngine::EngineERROR::ERROR_NORMAL);
 		return nullptr;
 	}
 	std::vector<triangleFace> faces;
-	int textureCount;
+	int textureCount=-1;
 
 	while (1) {
 		char lineHeader[128];
@@ -56,7 +58,7 @@ mesh* MeshManager::importMeshFbx(std::string filePath,texture _text)
 			temp_normals.push_back(normal);
 		}
 		else if (strcmp(lineHeader, "usemtl") == 0) {
-			UreTechEngine::EngineERROR::consoleError("(Mesh Loader): Found new texture!", UreTechEngine::EngineERROR::INFO_NORMAL);
+			UreTechEngine::EngineERROR::consoleError("(Mesh Loader): Found new texture!"+std::to_string(textureCount), UreTechEngine::EngineERROR::INFO_NORMAL);
 			textureCount++;
 		}
 		else if (strcmp(lineHeader, "f") == 0) {
@@ -64,6 +66,7 @@ mesh* MeshManager::importMeshFbx(std::string filePath,texture _text)
 			unsigned int vertexIndex[3], uvIndex[3], normalIndex[3];
 			int matches = fscanf(file, "%d/%d/%d %d/%d/%d %d/%d/%d\n", &vertexIndex[0], &uvIndex[0], &normalIndex[0], &vertexIndex[1], &uvIndex[1], &normalIndex[1], &vertexIndex[2], &uvIndex[2], &normalIndex[2]);
 			if (matches != 9) {
+				UreTechEngine::EngineERROR::consoleError("(Mesh Loader): Can not read source file!", UreTechEngine::EngineERROR::ERROR_NORMAL);
 				return nullptr;
 			}
 			vertexIndices.push_back(vertexIndex[0] - 1);
@@ -75,14 +78,24 @@ mesh* MeshManager::importMeshFbx(std::string filePath,texture _text)
 			normalIndices.push_back(normalIndex[0] - 1);
 			normalIndices.push_back(normalIndex[1] - 1);
 			normalIndices.push_back(normalIndex[2] - 1);
+			if (textureCount == -1) {
+				tmp_face_texture_index.push_back(0);
+				tmp_face_texture_index.push_back(0);
+				tmp_face_texture_index.push_back(0);
+			}
+			else {
+				tmp_face_texture_index.push_back(textureCount);
+				tmp_face_texture_index.push_back(textureCount);
+				tmp_face_texture_index.push_back(textureCount);
+			}
 		}
 	}
 	
 	for (unsigned int a = 0; a < vertexIndices.size(); a+=3) {
 		triangleFace face;
-		face.v0 = Vertex(temp_vertices[vertexIndices[(a)]], temp_uvs[uvIndices[(a)]], temp_normals[normalIndices[(a)]], textureCount);
-		face.v1 = Vertex(temp_vertices[vertexIndices[(a)+1]], temp_uvs[uvIndices[(a) + 1]], temp_normals[normalIndices[(a) + 1]], textureCount);
-		face.v2 = Vertex(temp_vertices[vertexIndices[(a)+2]], temp_uvs[uvIndices[(a) + 2]], temp_normals[normalIndices[(a) + 2]], textureCount);
+		face.v0 = Vertex(temp_vertices[vertexIndices[(a)]], temp_uvs[uvIndices[(a)]], temp_normals[normalIndices[(a)]], tmp_face_texture_index[(a)]);
+		face.v1 = Vertex(temp_vertices[vertexIndices[(a)+1]], temp_uvs[uvIndices[(a) + 1]], temp_normals[normalIndices[(a) + 1]], tmp_face_texture_index[(a+1)]);
+		face.v2 = Vertex(temp_vertices[vertexIndices[(a)+2]], temp_uvs[uvIndices[(a) + 2]], temp_normals[normalIndices[(a) + 2]], tmp_face_texture_index[(a+2)]);
 		faces.push_back(face);
 		finalIndices.push_back((a));
 		finalIndices.push_back((a) + 1);
@@ -96,6 +109,9 @@ mesh* MeshManager::importMeshFbx(std::string filePath,texture _text)
 			tmpVert.push_back(faces[i].v0);
 			tmpVert.push_back(faces[i].v1);
 			tmpVert.push_back(faces[i].v2);
+			//UreTechEngine::EngineERROR::consoleError(std::to_string(faces[i].v0.textureIndex), UreTechEngine::EngineERROR::INFO_NORMAL);
+			//UreTechEngine::EngineERROR::consoleError(std::to_string(faces[i].v1.textureIndex), UreTechEngine::EngineERROR::INFO_NORMAL);
+			//UreTechEngine::EngineERROR::consoleError(std::to_string(faces[i].v2.textureIndex), UreTechEngine::EngineERROR::INFO_NORMAL);
 		}
 
 	unsigned int vertCount = temp_vertices.size();

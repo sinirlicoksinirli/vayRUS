@@ -6,7 +6,7 @@
 
 class vayrusCube :public UreTechEngine::entity {
 public:
-	vayrusCube();
+	vayrusCube(void);
 	void begin();
 	void tick();
 };

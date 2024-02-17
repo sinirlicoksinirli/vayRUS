@@ -4,7 +4,7 @@
 #include"../UreTechEngine/shaders/MeshManager.hpp"
 
 #include<iostream>
-vayrusCube::vayrusCube() {
+vayrusCube::vayrusCube(void) {
 	//constructor
 }
 void vayrusCube::begin() {

@@ -1,12 +1,16 @@
 #include"../UreTechEngine/utils/baseVector.h"
 #include"../UreTechEngine/shaders/mesh.hpp"
 #include"entity.h"
+#include "../utils/errOut.h"
 
 #define entity_cpp
 
 void UreTechEngine::entity::updateVisual()
 {
-	entityMesh->draw(transform);
+	if (entityMesh != nullptr) {
+		UreTechEngine::EngineERROR::consoleError("(engine): Now drawing:"+this->entName, UreTechEngine::EngineERROR::INFO_NORMAL);
+		entityMesh->draw(transform);
+	}
 }
 
 void UreTechEngine::entity::init(UreTechEngineClass* _ptr)
@@ -34,6 +38,13 @@ UreTechEngine::entity::entity(UreTechEngine::vector3& location,UreTechEngine::Ro
 UreTechEngine::entity::entity(UreTechEngine::vector3& location, mesh* _mesh, std::string _entName)
 {
 	transform.Location = location;
+	entityMesh = _mesh;
+	entName = _entName;
+}
+
+UreTechEngine::entity::entity(mesh* _mesh, std::string _entName, UreTechEngine::Transform3D trnsfrm)
+{
+	transform = trnsfrm;
 	entityMesh = _mesh;
 	entName = _entName;
 }

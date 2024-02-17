@@ -4,7 +4,12 @@
 #include<map>
 #include"../UreTechEngine/shaders/shaderSystem.hpp"
 #include "../EngineBase.h"
+#include"../utils/Array.hpp"
 typedef unsigned int texture;
+
+namespace UreTechEngine {
+	class UreTechEngineClass;
+}
 
 class TextureManager{
 
@@ -13,6 +18,7 @@ public:
 
 	unsigned int loadTextureFromFile(std::string fileName);
 	void applyTexture( int levelInd, unsigned int textureId);
+	void applyMultipleTexture(std::vector<texture> a);
 
 private:
 	ShaderProgram* shaderProg;

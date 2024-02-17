@@ -29,9 +29,11 @@
 #include"UreTechEngine/utils/Array.hpp"
 
 #include"vayrusCube.h"
+#include"MyPlayerPawn.h"
 
 #include <thread>
 #include<map>
+#include "UreTechEngine/utils/errOut.h"
 
 
 vertexArrayObject EngineTestCubeVao;
@@ -120,37 +122,46 @@ int main(int argc, char** argv) {
 
 	//textures
 	Texture0 = textureManager->loadTextureFromFile("content/Textures/susTM.png");
-	Texture1 = textureManager->loadTextureFromFile("content/Textures/bodycolor.png");
+	Texture1 = textureManager->loadTextureFromFile("content/Textures/sus.png");
 	texture grass01Texture = textureManager->loadTextureFromFile("content/Textures/grass01.jpg");
 	texture Texture2 = textureManager->loadTextureFromFile("content/Textures/skysphere01.jpg");
+	UreTechEngine::EngineERROR::consoleError(std::to_string(Texture0), UreTechEngine::EngineERROR::INFO_NORMAL);
+	UreTechEngine::EngineERROR::consoleError(std::to_string(Texture1), UreTechEngine::EngineERROR::INFO_NORMAL);
+
+
 
 	mesh* mesh0 = meshManager->importMeshFbx("content/Meshs/flaty.obj", grass01Texture);
 	mesh* mesh1 = meshManager->importMeshFbx("content/Meshs/cube2TexTest.obj", Texture0);
 	mesh1->useMultipleTexture = true;
-	texture* tex = new texture;
-	*tex = Texture0;
-	mesh1->textures.addElement(tex);
-	mesh1->textures.addElement(&Texture1);
-	mesh1->changeLitRender(false);
-	mesh* mesh3 = meshManager->importMeshFbx("content/Meshs/alyx.obj", Texture1);
+	mesh1->textures.push_back(Texture0); 
+	mesh1->textures.push_back(Texture1);
+
+	//mesh1->changeLitRender(false);
+
+	//mesh* mesh3 = meshManager->importMeshFbx("content/Meshs/alyx.obj", Texture1);
 	mesh* mesh2 = meshManager->importMeshFbx("content/Meshs/skysphere.obj", Texture2);
+
+	mesh* playerCapsuleMesh = meshManager->importMeshFbx("content/Meshs/defaultCapsule.obj", Texture0);
 
 	player->CameraTranform.Location.x = -1.0f;
 	player->CameraTranform.Location.y = 0.0f;
 	player->CameraTranform.Location.z = 50.0f;
 
-	Transform3D a(vector3(0.0f, 0.0f, -1.0f), Rotation(0.0f, 0.0f, 0.0f), vector3(10.0f, 10.0f, 10.0f));
-	Transform3D b(vector3(-1.0f, 1.0f, -0.6f), Rotation(90.0f, 0.0f, 0.0f), vector3(1.0f, 1.0f, 1.0f));
-	Transform3D c(vector3(1.0f, -1.0f, -0.6f), Rotation(0.0f, 0.0f, 0.0f), vector3(1.0f, 1.0f, 1.0f));
-	Transform3D d(vector3(-1.0f, -1.0f, -0.6f), Rotation(90.0f, 0.0f, 0.0f), vector3(30.0f, 30.0f, 30.0f));
+	Transform3D a(vector3(0.0f, 0.0f, -1.0f), Rotation(0.0f, 0.0f, 0.0f), vector3(60.0f, 60.0f, 60.0f));
+	Transform3D b(vector3(-1.0f, 1.0f, -0.6f), Rotation(90.0f, 0.0f, 0.0f), vector3(0.0f, 0.0f, 0.0f));
+	Transform3D c(vector3(1.0f, -1.0f, -0.6f), Rotation(0.0f, 0.0f, 0.0f), vector3(0.0f, 0.0f, 0.0f));
+	Transform3D d(vector3(-1.0f, 0.0f, 0.0f), Rotation(0.0f, 0.0f, 0.0f), vector3(20.0f, 20.0f, 20.0f));
 	Transform3D e(vector3(0.0f, 0.0f, 0.0f), Rotation(-30.0f, -90.0f, 0.0f), vector3(1.0f, 1.0f, 1.0f));
+	Transform3D f(vector3(0.0f, 0.0f, 0.0f), Rotation(0.0f, 0.0f, 0.0f), vector3(1.0f, 1.0f, 1.0f));
 
 	TestDumy = engine->spawnEntity(new entity(a.Location,a.Rotation,a.Scale, mesh0,"flat"));
-	engine->spawnEntity(new entity(b.Location, b.Rotation, b.Scale, mesh1, "cube0"));
-	engine->spawnEntity(new entity(c.Location, c.Rotation, c.Scale, mesh3, "cube1"));
-	engine->spawnEntity(new entity(d.Location, d.Rotation, d.Scale, mesh1, "cube2"));
+	//engine->spawnEntity(new entity(b.Location, b.Rotation, b.Scale, mesh1, "cube0"));
+	//engine->spawnEntity(new entity(c.Location, c.Rotation, c.Scale, mesh3, "cube1"));
+	engine->spawnEntity(new entity(d.Location, d.Rotation, d.Scale, playerCapsuleMesh, "cube2"));
 	mesh2->changeLitRender(false);
 	engine->spawnEntity(new entity(e.Location, e.Rotation, e.Scale, mesh2, "skysphere"));
+
+	engine->spawnEntity(new MyPlayerPawn(nullptr, "playerPawn",f));
 
 	float rot = 0;
 
@@ -212,7 +223,7 @@ int main(int argc, char** argv) {
 
 		player->updateCamera();
 
-
+		glfwPollEvents();
 		engine->engineTick();
 
 		ImGui_ImplOpenGL3_NewFrame();
@@ -357,9 +368,8 @@ int main(int argc, char** argv) {
 		UreTechEngine::UreTechEngineClass::displayWidth = display_w;
 		UreTechEngine::UreTechEngineClass::displayHeight = display_h;
 
-		glfwSwapInterval(0);
+		glfwSwapInterval(1);
 		glfwSwapBuffers(window);
-		glfwPollEvents();
 	}
 
 	return 0;

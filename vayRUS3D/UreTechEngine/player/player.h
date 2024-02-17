@@ -3,10 +3,12 @@
 
 #include"../UreTechEngine/utils/baseVector.h"
 #include"../UreTechEngine/shaders/shaderSystem.hpp"
+#include"../entity/entity.h"
 
 class ShaderProgram;
 namespace UreTechEngine {
 	class UreTechEngineClass;
+	class entity;
 	class Player {
 	public:
 		glm::mat4 mtxCamPos;
@@ -19,6 +21,7 @@ namespace UreTechEngine {
 		UreTechEngineClass* engineRef=nullptr;
 
 		UreTechEngine::Transform3D CameraTranform;
+		entity* playerPawn = nullptr;
 		void updateCamera();
 		Player();
 

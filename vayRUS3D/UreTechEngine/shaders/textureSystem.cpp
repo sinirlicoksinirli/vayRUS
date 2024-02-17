@@ -4,6 +4,7 @@
 #include<GLFW/glfw3.h>
 #include<glm/mat4x4.hpp>
 #include<glm/gtx/matrix_transform_2d.hpp>
+#include "../utils/errOut.h"
 
 TextureManager* TextureManager::c_Instance = nullptr;
 TextureManager::TextureManager() {
@@ -44,7 +45,7 @@ unsigned int TextureManager::loadTextureFromFile(std::string fileName)
 
 		glGenerateMipmap(GL_TEXTURE_2D);
 
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);//pixel art için GL_NEAREST
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
 		texID = texture;
@@ -58,7 +59,16 @@ void TextureManager::applyTexture(int levelInd, unsigned int textureId)
 {
 	glActiveTexture(levelInd);
 	glBindTexture(GL_TEXTURE_2D, textureId);
-	shaderProg->setTexture(std::string("texture") + std::to_string(levelInd - GL_TEXTURE0), levelInd - GL_TEXTURE0);
+	//shaderProg->setTexture(std::string("texture") + std::to_string(levelInd - GL_TEXTURE0), levelInd - GL_TEXTURE0);
+}
+
+void TextureManager::applyMultipleTexture(std::vector<texture> a)
+{
+	for(int i = 0; i < a.size(); i++) {
+		glActiveTexture(GL_TEXTURE0+i);
+		glBindTexture(GL_TEXTURE_2D, a[i]);
+		//UreTechEngine::EngineERROR::consoleError(std::to_string((GLuint)(texArr->getIndex(i))), UreTechEngine::EngineERROR::INFO_NORMAL);
+	}
 }
 
 
