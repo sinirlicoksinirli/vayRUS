@@ -28,8 +28,11 @@
 #include"UreTechEngine/utils/3DMath.hpp"
 #include"UreTechEngine/utils/Array.hpp"
 
-#include"vayrusCube.h"
-#include"MyPlayerPawn.h"
+#include"UreTechEngine/network/network.h"
+
+
+#include "../content/sourceContent/vayrusCube.h"
+#include "../content/sourceContent/MyPlayerPawn.h"
 
 #include <thread>
 #include<map>
@@ -58,28 +61,43 @@ UreTechEngine::Player* player = nullptr;
 
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods) {
 	glfwCreateStandardCursor(GLFW_ARROW_CURSOR);
+	switch (key)
+	{
+	case(GLFW_KEY_UP):
+		editorCamYaw += 1;
+		break;
+	case(GLFW_KEY_DOWN):
+		editorCamYaw += -1;
+		break;
+	case(GLFW_KEY_LEFT):
+		editorCamRoll += 1;
+		break;
+	case(GLFW_KEY_RIGHT):
+		editorCamRoll += -1;
+		break;
+	}
 
 	if (key == GLFW_KEY_ESCAPE) {
 		glfwSetWindowShouldClose(window,1);
 	}
 	if (key == GLFW_KEY_W && rClickL) {
-		vector3 change = Math3D::addWithRotation(player->CameraTranform.Rotation, vector3(1.0f, 0.0f, 0.0f), vector3(editorCamPos[0], editorCamPos[1], editorCamPos[2]));
+		vector3 change = Math3D::addWithRotation(player->CameraTranform.Rotation, vector3(1.0f, 0.0f, 0.0f), player->playerPawn->transform.Location);
 		editorCamPos[0] = change.fx();
 		editorCamPos[1] = change.fy();
 	}
 	if (key == GLFW_KEY_S && rClickL) {
-		vector3 change = Math3D::addWithRotation(player->CameraTranform.Rotation, vector3(-1.0f, 0.0f, 0.0f), vector3(editorCamPos[0], editorCamPos[1], editorCamPos[2]));
+		vector3 change = Math3D::addWithRotation(player->CameraTranform.Rotation, vector3(-1.0f, 0.0f, 0.0f), player->playerPawn->transform.Location);
 		editorCamPos[0] = change.fx();
 		editorCamPos[1] = change.fy();
 	}
 
 	if (key == GLFW_KEY_D && rClickL) {
-		vector3 change = Math3D::addWithRotation(player->CameraTranform.Rotation, vector3(0.0f, 1.0f, 0.0f), vector3(editorCamPos[0], editorCamPos[1], editorCamPos[2]));
+		vector3 change = Math3D::addWithRotation(player->CameraTranform.Rotation, vector3(0.0f, 1.0f, 0.0f), player->playerPawn->transform.Location);
 		editorCamPos[0] = change.fx();
 		editorCamPos[1] = change.fy();
 	}
 	if (key == GLFW_KEY_A && rClickL) {
-		vector3 change = Math3D::addWithRotation(player->CameraTranform.Rotation, vector3(0.0f, -1.0f, 0.0f), vector3(editorCamPos[0], editorCamPos[1], editorCamPos[2]));
+		vector3 change = Math3D::addWithRotation(player->CameraTranform.Rotation, vector3(0.0f, -1.0f, 0.0f), player->playerPawn->transform.Location);
 		editorCamPos[0] = change.fx();
 		editorCamPos[1] = change.fy();
 	}
@@ -121,7 +139,7 @@ int main(int argc, char** argv) {
 	//******
 
 	//textures
-	Texture0 = textureManager->loadTextureFromFile("content/Textures/susTM.png");
+	Texture0 = textureManager->loadTextureFromFile("content/Textures/susTM.png",false);
 	Texture1 = textureManager->loadTextureFromFile("content/Textures/sus.png");
 	texture grass01Texture = textureManager->loadTextureFromFile("content/Textures/grass01.jpg");
 	texture Texture2 = textureManager->loadTextureFromFile("content/Textures/skysphere01.jpg");
@@ -143,16 +161,16 @@ int main(int argc, char** argv) {
 
 	mesh* playerCapsuleMesh = meshManager->importMeshFbx("content/Meshs/defaultCapsule.obj", Texture0);
 
-	player->CameraTranform.Location.x = -1.0f;
-	player->CameraTranform.Location.y = 0.0f;
-	player->CameraTranform.Location.z = 50.0f;
+	player->CameraTranform.Location.x = 0.0f;
+	player->CameraTranform.Location.y = -10.0f;
+	player->CameraTranform.Location.z = 3.2f;
 
-	Transform3D a(vector3(0.0f, 0.0f, -1.0f), Rotation(0.0f, 0.0f, 0.0f), vector3(60.0f, 60.0f, 60.0f));
+	Transform3D a(vector3(0.0f, 0.0f, -1.8f), Rotation(0.0f, 0.0f, 0.0f), vector3(60.0f, 60.0f, 60.0f));
 	Transform3D b(vector3(-1.0f, 1.0f, -0.6f), Rotation(90.0f, 0.0f, 0.0f), vector3(0.0f, 0.0f, 0.0f));
 	Transform3D c(vector3(1.0f, -1.0f, -0.6f), Rotation(0.0f, 0.0f, 0.0f), vector3(0.0f, 0.0f, 0.0f));
-	Transform3D d(vector3(-1.0f, 0.0f, 0.0f), Rotation(0.0f, 0.0f, 0.0f), vector3(20.0f, 20.0f, 20.0f));
+	Transform3D d(vector3(-1.0f, 0.0f, 0.0f), Rotation(0.0f, 0.0f, 0.0f), vector3(1.0f, 1.0f, 1.0f));
 	Transform3D e(vector3(0.0f, 0.0f, 0.0f), Rotation(-30.0f, -90.0f, 0.0f), vector3(1.0f, 1.0f, 1.0f));
-	Transform3D f(vector3(0.0f, 0.0f, 0.0f), Rotation(0.0f, 0.0f, 0.0f), vector3(1.0f, 1.0f, 1.0f));
+	Transform3D f(vector3(0.0f, 0.0f, 1.0f), Rotation(0.0f, 0.0f, 0.0f), vector3(1.0f, 1.0f, 1.0f));
 
 	TestDumy = engine->spawnEntity(new entity(a.Location,a.Rotation,a.Scale, mesh0,"flat"));
 	//engine->spawnEntity(new entity(b.Location, b.Rotation, b.Scale, mesh1, "cube0"));
@@ -161,7 +179,8 @@ int main(int argc, char** argv) {
 	mesh2->changeLitRender(false);
 	engine->spawnEntity(new entity(e.Location, e.Rotation, e.Scale, mesh2, "skysphere"));
 
-	engine->spawnEntity(new MyPlayerPawn(nullptr, "playerPawn",f));
+	player->playerPawn = engine->spawnEntity(new MyPlayerPawn(nullptr, "playerPawn",f));
+	
 
 	float rot = 0;
 
@@ -191,6 +210,11 @@ int main(int argc, char** argv) {
 	spawnables["entity"] = []() { return new entity(); };
 	spawnables["vayrusCube"] = []() { return new vayrusCube(); };
 
+	networkReplicationStruct* netTest = new networkReplicationStruct();
+	memcpy(&netTest->func_notify[0],"func_rep_Test",13);
+
+	//while (1) {}
+
 	while (!glfwWindowShouldClose(window)) {
 		glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -215,10 +239,12 @@ int main(int argc, char** argv) {
 		lypos = ypos;
 
 		player->CameraTranform.Rotation.roll = editorCamRoll;
-		player->CameraTranform.Rotation.pitch = editorCamYaw;
+		player->CameraTranform.Rotation.yaw = editorCamYaw;
 
-		player->CameraTranform.Location.x = editorCamPos[0];
-		player->CameraTranform.Location.y = editorCamPos[1];
+		player->playerPawn->transform.Rotation.yaw = -1*editorCamYaw;
+
+		player->playerPawn->transform.Location.x = editorCamPos[0];
+		player->playerPawn->transform.Location.y = editorCamPos[1];
 		//player->CameraTranform.Location.z = editorCamPos[2];
 
 		player->updateCamera();
@@ -340,6 +366,7 @@ int main(int argc, char** argv) {
 		}
 		if (!engine->isServer && engine->isInServer) {
 			netSys->sendRecvToServer();
+			netTest->run_noticed_funcs();
 		}
 
 

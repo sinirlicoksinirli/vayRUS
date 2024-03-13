@@ -24,7 +24,7 @@ TextureManager* TextureManager::getInstance()
 	return c_Instance;
 }
 
-unsigned int TextureManager::loadTextureFromFile(std::string fileName)
+unsigned int TextureManager::loadTextureFromFile(std::string fileName, bool texAntiAlising)
 {
 	unsigned int texID = -1;
 	if (L_TextureMap.count(fileName) != 0) {
@@ -44,9 +44,14 @@ unsigned int TextureManager::loadTextureFromFile(std::string fileName)
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, t_width, t_height, 0, GL_RGB, GL_UNSIGNED_BYTE, textureAddr);
 
 		glGenerateMipmap(GL_TEXTURE_2D);
-
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);//pixel art için GL_NEAREST
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		if (texAntiAlising) {
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);//pixel art için GL_NEAREST
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		}
+		else {
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);//pixel art için GL_NEAREST
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+		}
 
 		texID = texture;
 

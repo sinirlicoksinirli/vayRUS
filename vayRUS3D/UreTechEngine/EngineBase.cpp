@@ -24,7 +24,7 @@ UreTechEngine::UreTechEngineClass* UreTechEngine::UreTechEngineClass::getEngine(
 			while(1){}
 		}
 
-		c_Instance->window = glfwCreateWindow(displayWidth, displayHeight, "UreTechEngine BETA1.0.8-Pre_EDITOR-NETWORK OpenGL3.3", NULL, NULL);
+		c_Instance->window = glfwCreateWindow(displayWidth, displayHeight, "vayRUS3D BETA1.0.8-Pre_EDITOR-NETWORK (TEST) OpenGL3.3", NULL, NULL);
 		if (c_Instance->window == NULL) {
 			std::cout << "WINDOW ERROR!";
 			glfwTerminate();
@@ -61,10 +61,10 @@ UreTechEngine::UreTechEngineClass* UreTechEngine::UreTechEngineClass::getEngine(
 		c_Instance->mainShaderProgram->addUniform("texture5");
 
 		glEnable(GL_DEPTH_TEST);
-		/*glEnable(GL_CULL_FACE);
+		glEnable(GL_CULL_FACE);
 		glCullFace(GL_FRONT);
 		glFrontFace(GL_CW);
-		*/
+		
 		glfwWindowHint(GLFW_SAMPLES, 4);
 		glEnable(GL_MULTISAMPLE);
 		//******

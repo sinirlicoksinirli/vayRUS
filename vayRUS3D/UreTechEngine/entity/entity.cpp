@@ -8,7 +8,6 @@
 void UreTechEngine::entity::updateVisual()
 {
 	if (entityMesh != nullptr) {
-		UreTechEngine::EngineERROR::consoleError("(engine): Now drawing:"+this->entName, UreTechEngine::EngineERROR::INFO_NORMAL);
 		entityMesh->draw(transform);
 	}
 }

@@ -6,10 +6,20 @@
 #include<WinSock2.h>
 #include <WS2tcpip.h>
 #include<string>
+#include<map>
+#include <functional>
+
+#include"../content/sourceContent/networkStructs/defaultNetworkStructs.h"
 
 #include"../utils/Array.hpp"
 
+
+
 namespace UreTechEngine {
+
+	typedef char func_name[20];
+	typedef char ent_name[30];
+
 	class networkSystem {
 	public:
 		struct clientData {
@@ -17,8 +27,13 @@ namespace UreTechEngine {
 			int sock;
 		};
 
+
+		std::map<std::string, std::function<void(char*)>> rep_func_map;
+		std::map<std::string, void*> rep_func_inputs;
 		static networkSystem* c_NetInst;
 		static networkSystem* getNetworkSystem();
+
+		networkReplicationStruct replicating_func_dat;
 
 		bool invalidIP = true;
 

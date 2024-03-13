@@ -40,7 +40,7 @@ mat4 rotationZ( in float angle ) {
 							0,				0,		0,	1);
 }
 
- void main()
+void main()
 {
     mat4 translMatr;
 	mat4 rotMatr;

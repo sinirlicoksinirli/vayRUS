@@ -48,6 +48,8 @@ namespace UreTechEngine {
 		GLFWwindow* window = nullptr;
 		unsigned int countOfEntity = 0;
 		entity* sceneEntities[1000];
+		unsigned int netPlayersCount = 0;
+		Player* netPlayers[5];
 		UreTechEngineClass();
 		~UreTechEngineClass();
 	};

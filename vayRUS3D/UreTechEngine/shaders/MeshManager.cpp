@@ -29,7 +29,7 @@ mesh* MeshManager::importMeshFbx(std::string filePath,texture _text)
 
 	FILE* file = fopen(filePath.c_str(), "r");
 	if (file == NULL) {
-		UreTechEngine::EngineERROR::consoleError("(Mesh Loader): Can not open source file!", UreTechEngine::EngineERROR::ERROR_NORMAL);
+		UreTechEngine::EngineERROR::consoleError("(Mesh Loader): Can not open source file! Path:" + filePath, UreTechEngine::EngineERROR::ERROR_NORMAL);
 		return nullptr;
 	}
 	std::vector<triangleFace> faces;
@@ -66,7 +66,7 @@ mesh* MeshManager::importMeshFbx(std::string filePath,texture _text)
 			unsigned int vertexIndex[3], uvIndex[3], normalIndex[3];
 			int matches = fscanf(file, "%d/%d/%d %d/%d/%d %d/%d/%d\n", &vertexIndex[0], &uvIndex[0], &normalIndex[0], &vertexIndex[1], &uvIndex[1], &normalIndex[1], &vertexIndex[2], &uvIndex[2], &normalIndex[2]);
 			if (matches != 9) {
-				UreTechEngine::EngineERROR::consoleError("(Mesh Loader): Can not read source file!", UreTechEngine::EngineERROR::ERROR_NORMAL);
+				UreTechEngine::EngineERROR::consoleError("(Mesh Loader): Can not read source file! Path:" + filePath, UreTechEngine::EngineERROR::ERROR_NORMAL);
 				return nullptr;
 			}
 			vertexIndices.push_back(vertexIndex[0] - 1);

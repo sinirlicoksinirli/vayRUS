@@ -34,9 +34,6 @@
     <Filter Include="Source Files\imgui">
       <UniqueIdentifier>{a7b8d963-c234-499b-9899-f400df7932e1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\vayRUSContent">
-      <UniqueIdentifier>{4fd3f681-48b2-4873-a55b-33a51b8e64f8}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\UreTechEngine\network">
       <UniqueIdentifier>{dd871dd1-86f0-4323-8df5-e46eedd0ad67}</UniqueIdentifier>
     </Filter>
@@ -52,8 +49,11 @@
     <Filter Include="content\Textures">
       <UniqueIdentifier>{f3c9e414-9381-45a3-b708-906a6cd36e1b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\vayRUSContent\PlayerPawn">
-      <UniqueIdentifier>{113eb57b-4347-4c5d-aeb3-8baf8e568dd8}</UniqueIdentifier>
+    <Filter Include="content\sourceContent">
+      <UniqueIdentifier>{58c9a1b8-4b7f-4491-9168-a7a8459c9d11}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="content\sourceContent\networkStructs">
+      <UniqueIdentifier>{6f73517b-e332-4350-bfbf-9d1cfeef6cd5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -80,9 +80,6 @@
     </ClCompile>
     <ClCompile Include="Source.cpp">
       <Filter>Source Files\UreTechEngine</Filter>
-    </ClCompile>
-    <ClCompile Include="vayrusCube.cpp">
-      <Filter>Source Files\vayRUSContent</Filter>
     </ClCompile>
     <ClCompile Include="UreTechEngine\entity\entity.cpp">
       <Filter>Source Files\UreTechEngine\entity</Filter>
@@ -123,8 +120,14 @@
     <ClCompile Include="UreTechEngine\EngineBase.cpp">
       <Filter>Source Files\UreTechEngine</Filter>
     </ClCompile>
-    <ClCompile Include="MyPlayerPawn.cpp">
-      <Filter>Source Files\vayRUSContent\PlayerPawn</Filter>
+    <ClCompile Include="content\sourceContent\MyPlayerPawn.cpp">
+      <Filter>content\sourceContent</Filter>
+    </ClCompile>
+    <ClCompile Include="content\sourceContent\vayrusCube.cpp">
+      <Filter>content\sourceContent</Filter>
+    </ClCompile>
+    <ClCompile Include="content\sourceContent\networkStructs\defaultNetworkStructs.cpp">
+      <Filter>content\sourceContent\networkStructs</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -163,9 +166,6 @@
     </ClInclude>
     <ClInclude Include="include\GLFW\include\GLFW\glfw3native.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="vayrusCube.h">
-      <Filter>Source Files\vayRUSContent</Filter>
     </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>Header Files</Filter>
@@ -215,8 +215,14 @@
     <ClInclude Include="UreTechEngine\EngineBase.h">
       <Filter>Source Files\UreTechEngine</Filter>
     </ClInclude>
-    <ClInclude Include="MyPlayerPawn.h">
-      <Filter>Source Files\vayRUSContent\PlayerPawn</Filter>
+    <ClInclude Include="content\sourceContent\MyPlayerPawn.h">
+      <Filter>content\sourceContent</Filter>
+    </ClInclude>
+    <ClInclude Include="content\sourceContent\vayrusCube.h">
+      <Filter>content\sourceContent</Filter>
+    </ClInclude>
+    <ClInclude Include="defaultNetworkStructs.h">
+      <Filter>content\sourceContent\networkStructs</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -285,6 +291,9 @@
       <Filter>content\Textures</Filter>
     </CopyFileToFolders>
     <CopyFileToFolders Include="content\Meshs\defaultCapsule.obj">
+      <Filter>content\Meshs</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="content\Meshs\cube2TexTest.obj">
       <Filter>content\Meshs</Filter>
     </CopyFileToFolders>
   </ItemGroup>
